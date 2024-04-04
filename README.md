@@ -1,8 +1,6 @@
 # Welcome to OTD!
 
-<img src="https://drive.google.com/uc?export=view&id=1vOmEixcyMTZIRsQWbJpFQq5iC7ft35Rs" width="70">
-
-<img src="assets/applogo.jpeg" width="70">
+<img src="assets/applogo.jpeg" width="100">
 
 ## Synopsis
 OTD: Your Daily Snapshot into Life's Moments
