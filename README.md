@@ -1,9 +1,31 @@
-# OTD
+# Welcome to OTD!
 
-# Wiki
-https://github.com/StanfordCS194/Win24-Team11/wiki
+<img src="assets/applogo.jpeg" width="400">
 
-## Setup/Instructions for Graders:
+## Synopsis
+OTD: Your Daily Snapshot into Life's Moments
+
+Introducing OTD (Of The Day), an innovative social app where daily life becomes a shared adventure. At the heart of OTD lies the concept of daily prompts – a series of tags inviting you to capture and share unique aspects of your day.
+
+Whether it's your 'Song of the Day' setting the mood, the 'Sight of the Day' highlighting what caught your eye, or the 'Struggle of the Day' for a dose of real-life authenticity, OTD is your canvas to paint everyday stories. The 'Outfit of the Day' lets fashion enthusiasts showcase their style, while 'Selfie of the Day' is perfect for those personal moments. And for the thinkers, 'Quote of the Day' allows for a shared reflection.
+
+Each of these modes not only adds color to your profile but also connects you with a community sharing similar moments. The unique hashtag system of OTD enables easy navigation through the sea of daily experiences, allowing you to curate your feed and follow threads that resonate with you. It's more than an app – it's a daily journal, a community, and a new way to see the world through the eyes of others. With OTD, every day is a new page in a collective diary of life.
+
+
+
+## Meet our Team!
+
+
+
+
+Member | Picture | Contact | Skills | Weaknesses
+--- | --- | --- | --- | ---
+Esteban |<img src="https://drive.google.com/uc?export=view&id=1uuq9K8GnVZwgzXPBGlCjM9jFJyizwlb9" width="70"> | ejbh24@stanford.edu|Fullstack/OS/AI Project Experience | No Mobile App Experience
+Anudeep |  |  | | 
+Babar |  |  |  | 
+
+
+## Setup/Instructions for Users:
 
 - Git clone this project
 - Download Expo Go
