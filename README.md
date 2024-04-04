@@ -3,7 +3,7 @@
 # Wiki
 https://github.com/StanfordCS194/Win24-Team11/wiki
 
-## Setup/Instructions for Graders:
+## Setup/Instructions for Users:
 
 - Git clone this project
 - Download Expo Go
