@@ -1,6 +1,6 @@
 # OTD
 
-<img src="https://drive.google.com/file/d/1CTJ41xoFdRviNZNB2EmrbB07x_DyyrN5/view?usp=sharing" width="70">
+<img src="https://drive.google.com/file/d/1vOmEixcyMTZIRsQWbJpFQq5iC7ft35Rs/view?usp=sharing" width="70">
 
 
 ## Synopsis
