@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import PromptItem from './PromptItem';
+import { Snackbar } from 'react-native-paper';
 
 const PostPage = ({ navigation }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -11,25 +12,54 @@ const PostPage = ({ navigation }) => {
     const [activeTab, setActiveTab] = useState('ForYou'); // Added state for managing active tab
 
     const promptsForYou = [
-        { title: 'Song of the Day', icon: '🎵', answeredCount: 323 },
-        { title: 'Outfit of the Day', icon: '👗', answeredCount: 205 },
-        { title: 'Sunset of the Day', icon: '🌇', answeredCount: 94 },
-        { title: 'Book of the Day', icon: '📚', answeredCount: 56 },
-        { title: 'Workout of the Day', icon: '🏋️‍♂️', answeredCount: 3 },
+        { title: 'Song of the Day', icon: '🎵', answeredCount: 856 },
+        { title: 'Outfit of the Day', icon: '👗', answeredCount: 735 },
+        { title: 'Sunset of the Day', icon: '🌇', answeredCount: 375 },
+        { title: 'Book of the Day', icon: '📚', answeredCount: 312 },
+        { title: 'Workout of the Day', icon: '🏋️‍♂️', answeredCount: 140 },
     ];
 
     const promptsTrending = [
-        { title: 'Song of the Day', icon: '🎵', answeredCount: 323 },
-        { title: 'Outfit of the Day', icon: '👗', answeredCount: 205 },
-        { title: 'Selfie of the Day', icon: '🤳', answeredCount: 167 },
-        { title: 'Painting of the Day', icon: '🎨', answeredCount: 128 },
-        { title: 'Quote of the Day', icon: '💬', answeredCount: 103 },
-        { title: 'Sunset of the Day', icon: '🌇', answeredCount: 94 },
-        { title: 'Book of the Day', icon: '📚', answeredCount: 56 },
-        { title: 'Recipe of the Day', icon: '🍲', answeredCount: 26 },
-        { title: 'Joke of the Day', icon: '🤣', answeredCount: 13 },
-        { title: 'Glizzy of the Day', icon: '🌭', answeredCount: 8 },
-        { title: 'Workout of the Day', icon: '🏋️‍♂️', answeredCount: 3 },
+        { title: 'Song of the Day', icon: '🎵', answeredCount: 856 },
+        { title: 'Outfit of the Day', icon: '👗', answeredCount: 735 },
+        { title: 'Selfie of the Day', icon: '🤳', answeredCount: 609 },
+        { title: "Movie of the Day", icon: '🍿', answeredCount: 599 },
+        { title: 'Painting of the Day', icon: '🎨', answeredCount: 512 },
+        { title: 'Quote of the Day', icon: '💬', answeredCount: 448 },
+        { title: 'Sunset of the Day', icon: '🌇', answeredCount: 375 },
+        { title: 'Book of the Day', icon: '📚', answeredCount: 312 },
+        { title: "Travel View of the Day", icon: '🌍', answeredCount: 301 },
+        { title: 'Recipe of the Day', icon: '🍲', answeredCount: 256 },
+        { title: "Dog of the Day", icon: '🐶', answeredCount: 233 },
+        { title: 'Joke of the Day', icon: '🤣', answeredCount: 213 },
+        { title: "Sunrise of the Day", icon: '🌅', answeredCount: 197 },
+        { title: 'Glizzy of the Day', icon: '🌭', answeredCount: 174 },
+        { title: 'Workout of the Day', icon: '🏋️‍♂️', answeredCount: 140 },
+        { title: "Thought of the Day", icon: '💭', answeredCount: 112 },
+        { title: "Cat of the Day", icon: '🐱', answeredCount: 108 },
+        { title: "Sports Highlight of the Day", icon: '⚽', answeredCount: 99 },
+        { title: "Throwback of the Day", icon: '🎞️', answeredCount: 95 },
+        { title: "Struggle of the Day", icon: '😩', answeredCount: 91 },
+        { title: "Pet of the Day", icon: '🐾', answeredCount: 74 },
+        { title: "Architectural Marvel of the Day", icon: '🏛️', answeredCount: 66 },
+        { title: "Baby of the Day", icon: '👶', answeredCount: 59 },
+        { title: "Couple of the Day", icon: '👩‍❤️‍👨', answeredCount: 57 },
+        { title: "Good Dead of the Day", icon: '😇', answeredCount: 50 },
+        { title: "Meal of the Day", icon: '🍽️', answeredCount: 41 },
+        { title: "News of the Day", icon: '📰', answeredCount: 36 },
+        { title: "Plant of the Day", icon: '🪴', answeredCount: 34 },
+        { title: "Snack of the Day", icon: '🍓', answeredCount: 33 },
+        { title: "Coffee of the Day", icon: '☕', answeredCount: 30 },
+        { title: "Thirst Trap of the Day", icon: '🔥', answeredCount: 30 },
+        { title: "Mood of the Day", icon: '😊', answeredCount: 29 },
+        { title: "Pride of the Day", icon: '🌈', answeredCount: 26 },
+        { title: "Achievement of the Day", icon: '🏆', answeredCount: 25 },
+        { title: "Laugh of the Day", icon: '😂', answeredCount: 24 },
+        { title: "Trivia of the Day", icon: '🧠', answeredCount: 19 },
+        { title: "Self-Care Act of the Day", icon: '🧘', answeredCount: 15 },
+        { title: "New Tech of the Day", icon: '📱', answeredCount: 12 },
+        { title: "Life Hack of the Day", icon: '🛠️', answeredCount: 6 },
+        { title: "Lesson of the Day", icon: '✏️', answeredCount: 4 },
     ];
 
     const getPrompts = () => {
@@ -38,8 +68,8 @@ const PostPage = ({ navigation }) => {
 
     const [promptOfTheDay, setPromptOfTheDay] = useState({
             title: 'Plant of the Day',
-            icon: '🌱',
-            answeredCount: 150, // Example answered count
+            icon: '🪴',
+            answeredCount: 34, // Example answered count
     });
 
     // This function updates the search query state as the user types in the search bar
