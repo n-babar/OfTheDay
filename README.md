@@ -1,6 +1,6 @@
-# OTD
+# Welcome to OTD!
 
-<img src="https://drive.google.com/file/d/1vOmEixcyMTZIRsQWbJpFQq5iC7ft35Rs/view?usp=sharing" width="70">
+<img src="https://drive.google.com/uc?export=view&id=1vOmEixcyMTZIRsQWbJpFQq5iC7ft35Rs" width="70">
 
 
 ## Synopsis
