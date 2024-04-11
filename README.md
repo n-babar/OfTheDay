@@ -23,6 +23,8 @@ Member | Picture | Contact | Skills | Weaknesses
 Esteban |<img src="https://drive.google.com/uc?export=view&id=1uuq9K8GnVZwgzXPBGlCjM9jFJyizwlb9" width="70"> | ejbh24@stanford.edu|Fullstack/OS/AI Project Experience | No Mobile App Experience
 Anudeep |  |  | | 
 Babar |  |  |  | 
+Anapaula |  |  |  | 
+
 
 
 ## Setup/Instructions for Users:
