@@ -19,11 +19,11 @@ Each of these modes not only adds color to your profile but also connects you wi
 
 
 Member | Picture | Contact | Skills |
---- | --- | --- | --- | ---
+--- | --- | --- | --- |
 Esteban |<img src="https://drive.google.com/uc?export=view&id=1uuq9K8GnVZwgzXPBGlCjM9jFJyizwlb9" width="70"> | ejbh24@stanford.edu|Fullstack/OS/AI Project Experience | 
-Anudeep |  |  | | 
-Babar |  |  |  | 
-Anapaula |  |  |  | 
+Anudeep |  |  |  
+Babar |  |  |  
+Anapaula |  |  |  
 
 
 
