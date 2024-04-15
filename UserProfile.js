@@ -1,9 +1,11 @@
 // Profile view screen that displays detailed information about a specific user, including options to follow or unfollow, and navigation to their followers and following lists.
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
-import { getUser, getFriendships, getFollowers, checkIfFollowing, followUser, unfollowUser } from './database';
+import { getUser, getFriendships, getFollowers, checkIfFollowing, followUser, unfollowUser, fetchUserPosts, getOTD } from './database';
 import { UserContext } from './userContext'
+import FeedItem from './feed/FeedItem';
+
 
 const UserProfilePage = ({ route, navigation }) => {
     const { username } = route.params;
@@ -12,6 +14,8 @@ const UserProfilePage = ({ route, navigation }) => {
     const [followersCount, setFollowersCount] = useState(0);
     const { currentUser } = useContext(UserContext);
     const [isFollowing, setIsFollowing] = useState(false);
+    const [userPosts, setUserPosts] = useState([]);
+    const otdCache = useRef({});
 
     // Fetch following and followers count
     const fetchFollowingAndFollowers = async () => {
@@ -27,6 +31,58 @@ const UserProfilePage = ({ route, navigation }) => {
         }
     };
 
+        // Function to fetch posts specifically for the logged-in user
+        const fetchPostsForUser = async () => {
+            if (!username) return;
+    
+            const result = await fetchUserPosts(username);
+            if (!result.failed) {
+                let posts = result.posts;
+                const user_res = await getUser(username);
+                    if (user_res.failed) {
+                        console.error({"Failed to fetch user:": post.username});
+                        return; // Skip this post or handle error appropriately
+                    }
+
+                const otdPromises = posts.map(async post => {
+                   
+                    let user = user_res.user[0];
+                    post.pfp = user.profile_pic;
+                    post.name = user.first_name + ' ' + user.last_name;
+                    post.username_temp = user.username;
+    
+                    // Fetch OTD details only if needed
+                    const otd = await fetchOTDForPost(post.otd_id);
+                    if (otd) {
+                        post.category = otd[0].name;
+                        post.emoji = otd[0].emoji;
+                    }
+                });
+    
+                // Wait for all OTD details to be fetched and assigned
+                await Promise.all(otdPromises);
+                setUserPosts(posts);
+            } else {
+                console.error("Failed to fetch posts for user");
+            }
+        };
+    
+        // Function to fetch OTD based on otd_id
+        const fetchOTDForPost = async (otd_id) => {
+            if (otdCache.current[otd_id]) {
+                return otdCache.current[otd_id];  // Return cached data if available
+            }
+    
+            const otdResponse = await getOTD(otd_id);
+            if (!otdResponse.failed) {
+                otdCache.current[otd_id] = otdResponse.otd;  // Cache the fetched data
+                return otdResponse.otd;
+            } else {
+                console.error("Failed to fetch OTD:", otdResponse.error);
+                return null;
+            }
+        };
+
     useEffect(() => {
         const fetchUserProfile = async () => {
             const response = await getUser(username);
@@ -37,6 +93,7 @@ const UserProfilePage = ({ route, navigation }) => {
         fetchUserProfile();
 
         fetchFollowingAndFollowers();
+        fetchPostsForUser();
         
         // Check if currentUser is following the viewed profile
         const checkFollowingStatus = async () => {
@@ -94,6 +151,26 @@ const UserProfilePage = ({ route, navigation }) => {
                     <Text style={styles.statsLabel}>Following</Text>
                 </TouchableOpacity>
                 </View>
+            </View>
+
+            <View>
+                {userPosts.length > 0 ? userPosts.map((item, index) => (
+                        <FeedItem
+                        key={index}
+                        postId={item.id}
+                        pfp={item.pfp}
+                        name={item.name}
+                        username={item.username}
+                        category={item.category}
+                        text={item.text}
+                        image={item.image}
+                        emoji={item.emoji}
+                        num_likes={item.num_likes}
+                        num_comments={item.num_comments}
+                        created_at={item.created_at}
+                        currentUsername={currentUser}
+                    />
+                )) : <Text style={styles.noPostsText}>Loading or you have no posts!</Text>}
             </View>
         </ScrollView>
     );

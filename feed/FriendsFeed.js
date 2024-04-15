@@ -166,7 +166,7 @@ const FriendsFeedPage = () => {
         num_likes={item.num_likes}
         num_comments={item.num_comments}
         created_at={item.created_at}
-        currentUsername={currentUser} // Pass the current user's username
+        currentUsername={currentUser}
         />
     )):
     <Text style={styles.noPostsText}>Loading or Find Friends!</Text>}
