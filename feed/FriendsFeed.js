@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center', // For centering text horizontally
     }
+
 });
 
 export default FriendsFeedPage;

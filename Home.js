@@ -1,6 +1,6 @@
 // Main home screen component displaying user profile details, including functionality for editing profile, changing profile picture, and viewing followers/following counts.
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal, Pressable, Alert } from 'react-native';
 import { UserContext } from './userContext';
 import { getUser } from './database';
@@ -9,6 +9,8 @@ import EditProfileModal from './EditProfileModal';
 import { getFriendships, getFollowers, updateUserProfile } from './database';
 import { useFocusEffect } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { fetchUserPosts, getOTD } from './database';
+import FeedItem from './feed/FeedItem';
 
 const CLOUDINARY_CLOUD_NAME = 'dybcyj2qc';
 const CLOUDINARY_UPLOAD_PRESET = 'iaa4ymix';
@@ -19,9 +21,12 @@ const HomePage = ( {route, navigation} ) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [editProfileVisible, setEditProfileVisible] = useState(false);
     const { setActiveTab = () => {} } = route.params || {}
-
     const [followingCount, setFollowingCount] = useState(0);
     const [followersCount, setFollowersCount] = useState(0);
+    const [userPosts, setUserPosts] = useState([]);
+    const otdCache = useRef({});
+    const [refreshTrigger, setRefreshTrigger] = useState(false);
+
 
     const uploadImage = async (uri) => {
         console.log
@@ -168,6 +173,58 @@ const HomePage = ( {route, navigation} ) => {
         }, [currentUser])
     );
 
+    // Function to fetch posts specifically for the logged-in user
+    const fetchPostsForUser = async () => {
+        if (!currentUser) return;
+
+        const result = await fetchUserPosts(currentUser);
+        if (!result.failed) {
+            let posts = result.posts;
+            const otdPromises = posts.map(async post => {
+                const user_res = await getUser(post.username);
+                if (user_res.failed) {
+                    console.error({"Failed to fetch user:": post.username});
+                    return; // Skip this post or handle error appropriately
+                }
+
+                let user = user_res.user[0];
+                post.pfp = user.profile_pic;
+                post.name = user.first_name + ' ' + user.last_name;
+                post.username_temp = user.username;
+
+                // Fetch OTD details only if needed
+                const otd = await fetchOTDForPost(post.otd_id);
+                if (otd) {
+                    post.category = otd[0].name;
+                    post.emoji = otd[0].emoji;
+                }
+            });
+
+            // Wait for all OTD details to be fetched and assigned
+            await Promise.all(otdPromises);
+            setUserPosts(posts);
+        } else {
+            console.error("Failed to fetch posts for user");
+        }
+    };
+
+    // Function to fetch OTD based on otd_id
+    const fetchOTDForPost = async (otd_id) => {
+        if (otdCache.current[otd_id]) {
+            return otdCache.current[otd_id];  // Return cached data if available
+        }
+
+        const otdResponse = await getOTD(otd_id);
+        if (!otdResponse.failed) {
+            otdCache.current[otd_id] = otdResponse.otd;  // Cache the fetched data
+            return otdResponse.otd;
+        } else {
+            console.error("Failed to fetch OTD:", otdResponse.error);
+            return null;
+        }
+    };
+
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -184,7 +241,8 @@ const HomePage = ( {route, navigation} ) => {
             }
         };
         fetchUser();
-    }, [currentUser]);
+        fetchPostsForUser();
+    }, [currentUser, refreshTrigger]);
 
     const handleEditProfile = () => {
         setModalVisible(false);
@@ -243,6 +301,28 @@ const HomePage = ( {route, navigation} ) => {
 
                 <Text>🎵 Song of the Day</Text>
                 <Text>: 10 times most upvoted among friends!</Text>
+            </View>
+
+
+            <View>
+                {userPosts.length > 0 ? userPosts.map((item, index) => (
+                        <FeedItem
+                        key={index}
+                        postId={item.id}
+                        pfp={item.pfp}
+                        name={item.name}
+                        username={item.username}
+                        category={item.category}
+                        text={item.text}
+                        image={item.image}
+                        emoji={item.emoji}
+                        num_likes={item.num_likes}
+                        num_comments={item.num_comments}
+                        created_at={item.created_at}
+                        currentUsername={currentUser}
+                        onDelete={() => setRefreshTrigger(prev => !prev)}
+                    />
+                )) : <Text style={styles.noPostsText}>Loading or you have no posts!</Text>}
             </View>
 
             <Modal
@@ -417,6 +497,14 @@ const styles = StyleSheet.create({
         marginBottom: 13,
         textAlign: 'center',
     },
+
+    noPostsText: {
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+    }
+
 });
 
 export default HomePage;
