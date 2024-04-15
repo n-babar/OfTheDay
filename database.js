@@ -676,3 +676,88 @@ export async function fetchUserPosts(username) {
         return { failed: true, posts: null };
     }
 }
+
+// Function to retrieve all OTDs marked as favorite by a specific user
+export async function getAllUserFavoriteOtds(username) {
+    try {
+        const { data, error } = await supabase
+            .from('interests')
+            .select('*')
+            .eq('username_foreign', username);
+
+        if (error) {
+            throw error;
+        }
+
+        return { failed: false, favoriteOtds: data };
+    } catch (error) {
+        console.error('Error fetching user favorite OTDs:', error.message);
+        return { failed: true, favoriteOtds: null };
+    }
+}
+
+// Function to add a specific favorite OTD for a user
+export async function addSpecificUserOtd(otd_id, username) {
+    try {
+        const { data, error } = await supabase
+            .from('interests')
+            .insert([{ 
+                otd_id_foreign: otd_id, 
+                username_foreign: username, 
+                created_at: ((new Date()).toISOString()).toLocaleString('zh-TW') 
+            }]);
+
+        if (error) {
+            throw error;
+        }
+
+        return { failed: false, newInterest: data };
+    } catch (error) {
+        console.error('Error adding specific user OTD:', error.message);
+        return { failed: true, newInterest: null };
+    }
+}
+
+// Function to add many OTDs for a user at once
+export async function addManyUserOtds(username, otd_ids) {
+    try {
+        const interestsToAdd = otd_ids.map(otd_id => ({
+            otd_id_foreign: otd_id,
+            username_foreign: username
+        }));
+
+        const { data, error } = await supabase
+            .from('interests')
+            .insert(interestsToAdd);
+
+        if (error) {
+            throw error;
+        }
+
+        return { failed: false, newInterests: data };
+    } catch (error) {
+        console.error('Error adding many user OTDs:', error.message);
+        return { failed: true, newInterests: null };
+    }
+}
+
+// Function to remove a specific OTD from a user's favorites
+export async function removeSpecificUserOtd(otdId, username) {
+    try {
+        const { data, error } = await supabase
+            .from('interests')
+            .delete()
+            .match({ username_foreign: username, otd_id_foreign: otdId });
+
+        if (error) {
+            console.error('Error removing OTD from favorites:', error.message);
+            return { failed: true, error: error.message };
+        }
+
+        console.log('Removed OTD from favorites successfully:', data);
+        return { failed: false, message: 'OTD removed from favorites successfully' };
+    } catch (error) {
+        console.error('Error removing OTD from favorites:', error.message);
+        return { failed: true, error: error.message };
+    }
+}

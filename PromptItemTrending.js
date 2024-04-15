@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Include `navigation` in the component's props
-const PromptItem = ({ title, icon, answeredCount, navigation, onRemove }) => {
+const PromptItemTrending = ({ title, icon, answeredCount, navigation, isFavorite, onAdd, onRemove }) => {
     return (
         <View style={styles.promptItem}>
             <TouchableOpacity
@@ -18,8 +18,8 @@ const PromptItem = ({ title, icon, answeredCount, navigation, onRemove }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.addButton}
-                onPress={onRemove}>
-                <Icon name="close-outline" size={20} color="red" />
+                onPress={isFavorite ? onRemove : onAdd}>
+                <Icon name={isFavorite ? "close-outline" : "add-outline"} size={20} color={isFavorite ? "red" : "green"} />
             </TouchableOpacity>
         </View>
     );
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PromptItem;
+export default PromptItemTrending;
