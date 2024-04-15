@@ -50,16 +50,18 @@ Anapaula |  |  |
 - A user can also edit their profile if they click on the settings button, specifically change their first/last name, bio, location, password, and set a different profile pic.
 - Can view all your own posts on your own page.
 - Can  a view all of a user's post on their page.
+- Users can and remove their favorite OTDs on the post tab.
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
 - 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
 - Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
+- When registering, give users the option to select their favorite OTDS.
+- For prompts, the number answered count is hardcoded. Update the code so that these are accurate.
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this
 - OTD (Of the Day): Make feeds reset every day. This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts.
 - Implement external sharing for posts.
 - Limit users to only one post per prompt per day. User should be allowed to post as many prompts as they want per day though.
-- Right now, trending, for you, and prompt of the day are hardcoded. Ideally, we want the user to select the prompts they want to join upon registering, have the option to join them whenever they want, and create their own prompt. The way they are ranked by popularity is also hard coded. We did not have enought time to implement this. 
 - Maybe make it so the user has to engage with prompt of the day to even access their feed???
 - Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail)
 - Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts)
