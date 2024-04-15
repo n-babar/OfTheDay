@@ -48,6 +48,8 @@ Anapaula |  |  |
 - A user can then click on these profiles, view their account, including first name, last name, bio, username, profile pic, and location follow/unfollow the user, see many followers and following they have, and view a list of who they follow/who follows them.
 - A user can view their own profile on the profile tab. They can see their first name, last name, bio, username, location, and profile pic. They can also see how many followers and people they following have. One can click on these numbers to display a list of the people they follow/are followed by. A user can then remove followers and following people they follow if they want.
 - A user can also edit their profile if they click on the settings button, specifically change their first/last name, bio, location, password, and set a different profile pic.
+- Can view all your own posts on your own page.
+- Can  a view all of a user's post on their page.
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
@@ -59,8 +61,6 @@ Anapaula |  |  |
 - Limit users to only one post per prompt per day. User should be allowed to post as many prompts as they want per day though.
 - Right now, trending, for you, and prompt of the day are hardcoded. Ideally, we want the user to select the prompts they want to join upon registering, have the option to join them whenever they want, and create their own prompt. The way they are ranked by popularity is also hard coded. We did not have enought time to implement this. 
 - Maybe make it so the user has to engage with prompt of the day to even access their feed???
-- Display posts of users under their profile like twitter does
 - Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail)
 - Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts)
-- Replace following and followers with friend request (the former was easier and faster to implement before the code was due)
 - When registering, give users the option to send friend requests to their contacts
