@@ -656,3 +656,23 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         detectSessionInUrl: false,
     }
 });
+
+// Function to fetch posts by a specific user, ordered from most recent to least
+export async function fetchUserPosts(username) {
+    try {
+        const { data, error } = await supabase
+            .from('posts')
+            .select('*')
+            .eq('username', username)
+            .order('created_at', { ascending: false }); // Sorting by created_at descending
+
+        if (error) {
+            throw error;
+        }
+
+        return { failed: false, posts: data };
+    } catch (error) {
+        console.error('Error fetching user posts:', error.message);
+        return { failed: true, posts: null };
+    }
+}
