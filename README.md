@@ -54,8 +54,10 @@ Anapaula |  |  |
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
+- big bug where friends feed does not auto reload when you naviagte to it despite global feed auto reloading
 - 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
 - Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
+
 - When registering, give users the option to select their favorite OTDS.
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate.
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this
