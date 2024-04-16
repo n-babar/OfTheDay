@@ -53,6 +53,7 @@ Anapaula |  |  |
 - Users can and remove their favorite OTDs on the post tab.
 - For you page with a default filter of all your interests. Only gives you the option to filter additionally by specific interests.
 
+### TODO - Push to testflight?:
 
 ## Bugs to fix:
 - big bug where friends feed does not auto reload when you naviagte to it despite global feed auto reloading
