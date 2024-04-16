@@ -62,15 +62,17 @@ Anapaula |  |  |
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
-- When registering, give users the option to select their favorite OTDS.
-- For prompts, the number answered count is hardcoded. Update the code so that these are accurate.
-- Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this
-- OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts.
-- Implement external sharing for posts.
-- Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though
-- Maybe make it so the user has to engage with prompt of the day to even access their feed???
-- Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail)
-- Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts)
+- When registering, give users the option to select their favorite OTDS (easier).
+- For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
+- give users the option to follow and unfollow other users on the list of their followers and following like you can do you onw your own account (easier, just reuse code).
+- have users be redirected to accounts of other users or their own aaccount when you click on their profile in the feed (might be eaiser but idk)
+- Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
+- OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts (easier)
+- Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts)
+- Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though (medium)
+- Maybe make it so the user has to engage with prompt of the day to even access their feed (medium)
+- Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail) (idk - maybe easy)
+- Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts) (medium)
 
 
 - Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
