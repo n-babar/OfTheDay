@@ -1,7 +1,7 @@
 // The GlobalFeedPage component fetches and displays posts from all users in a global feed, offering sorting and filtering functionalities based on votes, recency, and categories.
 
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Image } from 'react-native';
 import FeedItem from './FeedItem'; 
 import sortIcon from '../assets/sort-icon.png'; 
@@ -14,7 +14,7 @@ const GlobalFeedPage = () => {
     const { currentUser } = useContext(UserContext);
     const [globalFeed, setGlobalFeed] = useState([]);
     const [sortedAndFilteredFeed, setSortedAndFilteredFeed] = useState(globalFeed); // Initial feed data
-    const [sortType, setSortType] = useState('votes'); // Default sort by votes
+    const [sortType, setSortType] = useState('recency'); // Default sort by recency
     const [filterCategory, setFilterCategory] = useState(''); // Track the current filter
     const [OTDs, setOTDs] = useState([]);
     const [refreshTrigger, setRefreshTrigger] = useState(false);

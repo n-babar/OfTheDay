@@ -75,7 +75,7 @@ const PostPage = ({ navigation }) => {
                     const favoriteOtdIds = response.favoriteOtds;
                     const favoriteIds = new Set(response.favoriteOtds.map(otd => otd.otd_id_foreign));
                     setFavoritePrompts(favoriteIds);
-                    console.log(favoritePrompts);
+                    // console.log(favoritePrompts);
                     const favoriteOtdDetailsPromises = favoriteOtdIds.map(otd =>
                         getOTD(otd.otd_id_foreign).then(otdResponse => {
                             if (!otdResponse.failed) {
