@@ -3,6 +3,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import FriendsFeedPage from "./FriendsFeed.js";
 import GlobalFeedPage from './GlobalFeed.js';
+import ForYouFeedPage from './ForYouFeed.js';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ const FeedStack = () => {
                 headerShown: false
             }}>
         <Stack.Screen name="FriendsFeed" component={FriendsFeedPage} />
+        <Stack.Screen name="ForYouFeed" component={ForYouFeedPage} />
         <Stack.Screen name="GlobalFeed" component={GlobalFeedPage} />
         </Stack.Navigator>
     );

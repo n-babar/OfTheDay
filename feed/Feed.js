@@ -22,6 +22,15 @@ const TopBar = () => {
                 <Text>Friends</Text>
             </TouchableOpacity>
             <TouchableOpacity
+                style={[styles.tab, activeTab === 'ForYouFeed' ? styles.activeTab : null]}
+                onPress={() => {
+                    navigation.navigate('ForYouFeed');
+                    setActiveTab('ForYouFeed');
+                }}>
+                <Icon name='happy-outline' size={25}></Icon>
+                <Text>For You</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
                 style={[styles.tab, activeTab === 'GlobalFeed' ? styles.activeTab : null]}
                 onPress={() => {
                     navigation.navigate('GlobalFeed');
