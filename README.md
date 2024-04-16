@@ -51,20 +51,26 @@ Anapaula |  |  |
 - Can view all your own posts on your own page.
 - Can  a view all of a user's post on their page.
 - Users can and remove their favorite OTDs on the post tab.
+- For you page with a default filter of all your interests. Only gives you the option to filter additionally by specific interests.
+
+
+## Bugs to fix:
+- big bug where friends feed does not auto reload when you naviagte to it despite global feed auto reloading
+- 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
+- When changing sorting, sometimes, the number of likes and comments is buggy, (it will display the accurate number for the post that was in that previous position).
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
-- big bug where friends feed does not auto reload when you naviagte to it despite global feed auto reloading
-- 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
-- Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
-
 - When registering, give users the option to select their favorite OTDS.
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate.
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this
-- OTD (Of the Day): Make feeds reset every day. This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts.
+- OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts.
 - Implement external sharing for posts.
-- Limit users to only one post per prompt per day. User should be allowed to post as many prompts as they want per day though.
+- Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though
 - Maybe make it so the user has to engage with prompt of the day to even access their feed???
 - Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail)
 - Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts)
-- When registering, give users the option to send friend requests to their contacts
+
+
+- Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
+- - When registering, give users the option to follow their contacts
