@@ -1,22 +1,27 @@
 // The FriendsFeedPage component displays posts from friends of the current user, with functionality to sort and filter posts based on preferences like votes and recency. It leverages the UserContext to access current user information and utilizes the database functions to fetch relevant posts and user details.
 
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, AppState } from 'react-native';
 import { Image } from 'react-native';
 import FeedItem from './FeedItem'; 
 import sortIcon from '../assets/sort-icon.png'; 
 import filterIcon from '../assets/filter-icon.png'; 
 import { UserContext } from '../userContext';
 import { getUser, getAllPosts, getAllOTDs, getFriendships } from '../database';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 const FriendsFeedPage = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     //console.log({"current user from posts:": currentUser});
     const [friendsFeed, setFriendsFeed] = useState([]);
     const [sortedAndFilteredFeed, setSortedAndFilteredFeed] = useState(friendsFeed); // Initial feed data
-    const [sortType, setSortType] = useState('votes'); // Default sort by votes
+    const [sortType, setSortType] = useState('recency'); // Default sort by recency
     const [filterCategory, setFilterCategory] = useState(''); // Track the current filter
     const [OTDs, setOTDs] = useState([]);
+    const [refreshTrigger, setRefreshTrigger] = useState(false);
+    const isFocused = useIsFocused();
+    const navigation = useNavigation();
+
 
     // Combined function to sort and filter feed
     const sortAndFilterFeed = () => {
@@ -36,73 +41,83 @@ const FriendsFeedPage = () => {
         setSortedAndFilteredFeed(updatedFeed);
         //console.log({"sorted and filtered feed: ": sortedAndFilteredFeed});
     };
+
+    const fetchPosts = async () => {
+        try {
+            // fetch all posts from database
+            const posts_res = await getAllPosts();
+            if (posts_res.failed) {
+                console.error("Failed to fetch posts");
+                return;
+            }
+            //console.log({"fetched posts:": posts_res.posts});
+            let posts = posts_res.posts;
+
+            // get friendships for current logged in user
+            const friendships_res = await getFriendships(currentUser);
+            if (friendships_res.failed) {
+                console.error({"Failed to get friendships for user:": currentUser});
+                return;
+            }
+            //console.log({"user": currentUser, "obtained friends": friendships_res.friends});
+
+            // filter feed based on friendships
+            posts = posts.filter(post => friendships_res.friends.includes(post.username));
+            
+            // fetch user and otd data from database for each post
+            for (let i = 0; i < posts.length; i++) {
+                // fetch user data
+                const user_res = await getUser(posts[i].username);
+                if (user_res.failed) {
+                    console.error({"Failed to fetch user:": posts[i].username});
+                    return;
+                }
+                //console.log({"obtained user of post: ": user_res.user});
+
+                // set user data
+                let user = user_res.user[0];
+                posts[i].pfp = user.profile_pic;
+                posts[i].name = user.first_name + ' ' + user.last_name;
+
+                // fetch otd data
+                const otd_res = await getAllOTDs();
+                if (otd_res.failed) {
+                    console.error("Failed to fetch otds");
+                    return;
+                }
+                //console.log({"fetched otds:": otd_res.otds});
+                // set OTDs variable for filtering use later
+                setOTDs(otd_res.otds);
+                
+                // set otd data
+                let otd = otd_res.otds.filter(prompt => prompt.id === posts[i].otd_id);
+                //console.log({"obtained otd of post: ": otd});
+                posts[i].category = otd[0].name;
+                posts[i].emoji = otd[0].emoji;
+            }
+            setFriendsFeed(posts);
+            //console.log({"posts data": friendsFeed});
+
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+
+
+
+
     
     // Re-sort and re-filter feed whenever sortType or filterCategory changes
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                // fetch all posts from database
-                const posts_res = await getAllPosts();
-                if (posts_res.failed) {
-                    console.error("Failed to fetch posts");
-                    return;
-                }
-                //console.log({"fetched posts:": posts_res.posts});
-                let posts = posts_res.posts;
-
-                // get friendships for current logged in user
-                const friendships_res = await getFriendships(currentUser);
-                if (friendships_res.failed) {
-                    console.error({"Failed to get friendships for user:": currentUser});
-                    return;
-                }
-                //console.log({"user": currentUser, "obtained friends": friendships_res.friends});
-
-                // filter feed based on friendships
-                posts = posts.filter(post => friendships_res.friends.includes(post.username));
-                
-                // fetch user and otd data from database for each post
-                for (let i = 0; i < posts.length; i++) {
-                    // fetch user data
-                    const user_res = await getUser(posts[i].username);
-                    if (user_res.failed) {
-                        console.error({"Failed to fetch user:": posts[i].username});
-                        return;
-                    }
-                    //console.log({"obtained user of post: ": user_res.user});
-
-                    // set user data
-                    let user = user_res.user[0];
-                    posts[i].pfp = user.profile_pic;
-                    posts[i].name = user.first_name + ' ' + user.last_name;
-
-                    // fetch otd data
-                    const otd_res = await getAllOTDs();
-                    if (otd_res.failed) {
-                        console.error("Failed to fetch otds");
-                        return;
-                    }
-                    //console.log({"fetched otds:": otd_res.otds});
-                    // set OTDs variable for filtering use later
-                    setOTDs(otd_res.otds);
-                    
-                    // set otd data
-                    let otd = otd_res.otds.filter(prompt => prompt.id === posts[i].otd_id);
-                    //console.log({"obtained otd of post: ": otd});
-                    posts[i].category = otd[0].name;
-                    posts[i].emoji = otd[0].emoji;
-                }
-                setFriendsFeed(posts);
-                //console.log({"posts data": friendsFeed});
-
-            } catch (error) {
-                console.error("Error fetching posts:", error);
-            }
-        };
         
-        fetchPosts();
-        sortAndFilterFeed();
-    }, [sortType, filterCategory, friendsFeed.length]);
+        if (isFocused) {
+            fetchPosts();
+            sortAndFilterFeed();
+        }
+
+    }, [sortType, filterCategory, friendsFeed.length, refreshTrigger, isFocused]);
+
+
 
     // display sorting options
     const showSortOptions = () => {
