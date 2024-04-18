@@ -19,7 +19,7 @@ const TopBar = () => {
                     setActiveTab('FriendsFeed');
                 }}>
                 <Icon name='people' size={25}></Icon>
-                <Text>Friends</Text>
+                <Text>Following</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.tab, activeTab === 'ForYouFeed' ? styles.activeTab : null]}
@@ -30,7 +30,7 @@ const TopBar = () => {
                 <Icon name='happy-outline' size={25}></Icon>
                 <Text>For You</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={[styles.tab, activeTab === 'GlobalFeed' ? styles.activeTab : null]}
                 onPress={() => {
                     navigation.navigate('GlobalFeed');
@@ -38,7 +38,7 @@ const TopBar = () => {
                 }}>
                 <Icon name='earth' size={25}></Icon>
                 <Text>Everyone</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 }
