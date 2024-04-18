@@ -62,6 +62,7 @@ Anapaula |  |  |
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
+- add a loading screen (hard maybe idk???)
 - When registering, give users the option to select their favorite OTDS (easier).
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
 - give users the option to follow and unfollow other users on the list of their followers and following like you can do you onw your own account (easier, just reuse code).
