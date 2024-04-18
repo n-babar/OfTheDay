@@ -15,7 +15,7 @@ const FeedStack = () => {
             }}>
         <Stack.Screen name="FriendsFeed" component={FriendsFeedPage} />
         <Stack.Screen name="ForYouFeed" component={ForYouFeedPage} />
-        <Stack.Screen name="GlobalFeed" component={GlobalFeedPage} />
+        {/* <Stack.Screen name="GlobalFeed" component={GlobalFeedPage} /> */}
         </Stack.Navigator>
     );
 };
