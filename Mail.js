@@ -35,6 +35,7 @@ const MailPage = ( {navigation} ) => {
                     style={styles.searchInput}
                     value={searchQuery}
                     onChangeText={handleSearchChange}
+                    placeholderTextColor="lightgrey"
                 />
             </View>
             <View style={styles.promptsContainer}>
@@ -57,7 +58,7 @@ const MailPage = ( {navigation} ) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
 
     searchContainer: {
@@ -67,10 +68,11 @@ const styles = StyleSheet.create({
 
     searchInput: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: 'white',
         borderWidth: 1,
         borderRadius: 10,
         paddingLeft: 10,
+        color: 'white'
     },
 
     promptsContainer: {
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
 
     userName: {
         fontWeight: 'bold',
+        color: 'white'
     },
 
     userHandle: {

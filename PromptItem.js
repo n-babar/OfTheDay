@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         borderBottomWidth: 1,
-        borderBottomColor: '#e1e1e1',
-        backgroundColor: 'transparent',
+        borderBottomColor: 'grey',
+        backgroundColor: 'black',
         justifyContent: 'space-between',
+        
     },
     mainContent: {
         flex: 1,
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     promptTitle: {
         fontSize: 18,
         fontWeight: '600',
+        color: 'white'
     },
     promptCount: {
         fontSize: 14,

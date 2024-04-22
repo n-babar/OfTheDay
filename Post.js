@@ -6,6 +6,7 @@ import PromptItem from './PromptItem';
 import { UserContext } from './userContext';
 import { getAllUserFavoriteOtds, addSpecificUserOtd, getOTD, removeSpecificUserOtd } from './database';
 import PromptItemTrending from './PromptItemTrending';
+import PromptOTDItem from "./PromptOTDItem"
 
 const PostPage = ({ navigation }) => {
     const { currentUser } = useContext(UserContext);
@@ -193,13 +194,14 @@ const PostPage = ({ navigation }) => {
                     style={styles.searchInput}
                     value={searchQuery}
                     onChangeText={handleSearch}
+                    placeholderTextColor="lightgrey"
                 />
             </View>
     
             {/* Prompt of the Day Container */}
             <View style={styles.promptOfTheDayContainer}>
-                <Text style={styles.promptOfTheDayHeader}>Today</Text>
-                <PromptItemTrending
+                <Text style={styles.promptOfTheDayTodayHeader}>Today</Text>
+                <PromptOTDItem
                     title={promptOfTheDay.title}
                     icon={promptOfTheDay.icon}
                     answeredCount={promptOfTheDay.answeredCount}
@@ -256,20 +258,21 @@ const PostPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white'
+        backgroundColor: 'black'
     },
 
     searchContainer: {
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
 
     searchInput: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: 'white',
         borderWidth: 1,
         borderRadius: 10,
         paddingLeft: 10,
+        color: "white"
     },
 
     promptsHeader: {
@@ -326,20 +329,28 @@ const styles = StyleSheet.create({
     },
 
     promptOfTheDayContainer: {
-        backgroundColor: 'blanchedalmond',
-        marginLeft: 10,
+        backgroundColor: 'white',
+        marginLeft: 0,
         marginTop: 3,
+    },
+
+    promptOfTheDayTodayHeader: {
+        fontSize: 22,
+        marginLeft: 3, 
+        fontWeight: 'bold',
+        color: "black"
     },
 
     promptOfTheDayHeader: {
         fontSize: 22,
         fontWeight: 'bold',
+        color: "white"
     },
 
     tabsContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
     },
@@ -352,7 +363,7 @@ const styles = StyleSheet.create({
 
     activeTab: {
         borderBottomWidth: 2,
-        borderBottomColor: 'black',
+        borderBottomColor: 'white',
     },
 });
 

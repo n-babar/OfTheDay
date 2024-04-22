@@ -294,13 +294,13 @@ const HomePage = ( {route, navigation} ) => {
             </View>
             <View style={styles.sectionContainer}>
 
-                <Text>🤳 Selfie of the Day</Text>
-                <Text>: 1 times most upvoted globally!</Text>
+                <Text style={styles.badges}>🤳 Selfie of the Day</Text>
+                <Text style={styles.badges}>: 1 times most upvoted globally!</Text>
             </View>
             <View style={styles.sectionContainer}>
 
-                <Text>🎵 Song of the Day</Text>
-                <Text>: 10 times most upvoted among friends!</Text>
+                <Text style={styles.badges}>🎵 Song of the Day</Text>
+                <Text style={styles.badges}>: 10 times most upvoted among friends!</Text>
             </View>
 
 
@@ -370,7 +370,7 @@ const HomePage = ( {route, navigation} ) => {
 
 const styles = StyleSheet.create({
     scrollView: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         marginBottom: 80
     },
 
@@ -384,6 +384,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 34,
         fontWeight: 'bold',
+        color: 'white'
     },
 
     settingsButton: {
@@ -406,6 +407,7 @@ const styles = StyleSheet.create({
     profileName: {
         fontSize: 24,
         fontWeight: 'bold',
+        color: 'white'
     },
 
     profileHandle: {
@@ -417,6 +419,7 @@ const styles = StyleSheet.create({
     profileDescription: {
         textAlign: 'center',
         marginVertical: 10,
+        color: 'white'
     },
 
     profileStats: {
@@ -434,6 +437,7 @@ const styles = StyleSheet.create({
     statsNumber: {
         fontSize: 24,
         fontWeight: 'bold',
+        color: 'white'
     },
 
     statsLabel: {
@@ -444,7 +448,8 @@ const styles = StyleSheet.create({
     sectionContainer: {
         flexDirection: 'row',
         padding: 20,
-        borderBottomWidth: 1,
+        borderTopColor: 'lightgrey',
+
         borderBottomColor: 'lightgrey',
     },
 
@@ -496,6 +501,7 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 13,
         textAlign: 'center',
+        color: 'white'
     },
 
     noPostsText: {
@@ -503,6 +509,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
+        color: 'white'
+    },
+
+    badges: {
+        color: "white"
     }
 
 });

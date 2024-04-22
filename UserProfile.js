@@ -177,6 +177,8 @@ const UserProfilePage = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+
+
     followButton: {
         marginTop: 10,
         backgroundColor: '#007bff',
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
     },
 
     scrollView: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         marginBottom: 80
     },
 
@@ -201,16 +203,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 56,
+        backgroundColor: "black",
     },
 
     headerText: {
         fontSize: 34,
         fontWeight: 'bold',
+        color: "white",
     },
 
     profileContainer: {
         alignItems: 'center',
         padding: 10,
+        backgroundColor: "black",
     },
 
     profileImage: {
@@ -222,6 +227,7 @@ const styles = StyleSheet.create({
     profileName: {
         fontSize: 24,
         fontWeight: 'bold',
+        color: "white",
     },
 
     profileHandle: {
@@ -233,6 +239,7 @@ const styles = StyleSheet.create({
     profileDescription: {
         textAlign: 'center',
         marginVertical: 10,
+        color: "white",
     },
 
     profileStats: {
@@ -250,6 +257,7 @@ const styles = StyleSheet.create({
     statsNumber: {
         fontSize: 24,
         fontWeight: 'bold',
+        color: "white",
     },
 
     statsLabel: {
@@ -312,6 +320,7 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 13,
         textAlign: 'center',
+        color: "white",
     },
 });
 

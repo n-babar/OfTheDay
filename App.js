@@ -13,38 +13,42 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
   const navigation = useNavigation();
   
   return (
-    <View style={[styles.bottomBar]}> 
-      <TouchableOpacity style={[styles.tab, activeTab === 'Feed' ? styles.activeTab : null]}
+    <View style={styles.bottomBar}> 
+      <TouchableOpacity 
+        style={[styles.tab, activeTab === 'Feed' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Feed');
           setActiveTab('Feed');
         }}>
-        <Icon name='list' size={25}></Icon>
-        <Text>Feed</Text>
+        <Icon name='list' size={25} color="#FFFFFF"></Icon>
+        <Text style={styles.tabText}>Feed</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.tab, activeTab === 'Post' ? styles.activeTab : null]}
+      <TouchableOpacity 
+        style={[styles.tab, activeTab === 'Post' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Post');
           setActiveTab('Post');
         }}>
-        <Icon name='add-circle' size={25}></Icon>
-        <Text>Post</Text>
+        <Icon name='add-circle' size={25} color="#FFFFFF"></Icon>
+        <Text style={styles.tabText}>Post</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.tab, activeTab === 'Search' ? styles.activeTab : null]}
+      <TouchableOpacity 
+        style={[styles.tab, activeTab === 'Search' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Search');
           setActiveTab('Search');
         }}>
-        <Icon name='search' size={25}></Icon>
-        <Text>Search</Text>
+        <Icon name='search' size={25} color="#FFFFFF"></Icon>
+        <Text style={styles.tabText}>Search</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.tab, activeTab === 'Profile' ? styles.activeTab : null]}
+      <TouchableOpacity 
+        style={[styles.tab, activeTab === 'Profile' && styles.activeTab]}
         onPress={() => {
-          navigation.navigate('Profile', {setActiveTab: setActiveTab});
+          navigation.navigate('Profile');
           setActiveTab('Profile');
         }}>
-        <Icon name='person' size={25}></Icon>
-        <Text>Profile</Text>
+        <Icon name='person' size={25} color="#FFFFFF"></Icon>
+        <Text style={styles.tabText}>Profile</Text>
       </TouchableOpacity>
     </View>
   );
@@ -55,17 +59,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingVertical: 20,
+    backgroundColor: '#121212', // new background color for tabs
   },
 
   activeTab: {
-    borderTopWidth: 2, 
-    borderTopColor: 'black', 
+    borderTopWidth: 2,
+    borderTopColor: '#FFFFFF', // new accent color for active tab
   },
 
   container: {
     flex: 1,
     height: '100%',
-    backgroundColor: 'lightblue', 
+    backgroundColor: '#121212', // new background color for container
   },
 
   topBar: {
@@ -73,15 +78,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     top: 0,
     flexDirection: "row",
-    backgroundColor: 'white'
+    backgroundColor: '#121212', // new background color for top bar
   },
 
   bottomBar: {
     position: "absolute",
     bottom: 0,
     flexDirection: "row",
-    backgroundColor: 'white'
-  }
+    backgroundColor: '#121212', // new background color for bottom bar
+  },
+
+  // New style for text to ensure it's visible on the dark background
+  text: {
+    color: '#FFFFFF', // new text color for better contrast
+  },
 });
 
 export default function App() {

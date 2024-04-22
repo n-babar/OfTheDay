@@ -18,8 +18,8 @@ const TopBar = () => {
                     navigation.navigate('FriendsFeed');
                     setActiveTab('FriendsFeed');
                 }}>
-                <Icon name='people' size={25}></Icon>
-                <Text>Following</Text>
+                <Icon name='people' size={25} color="#FFFFFF"></Icon>
+                <Text style={{ color: '#FFFFFF' }}>Following</Text> 
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.tab, activeTab === 'ForYouFeed' ? styles.activeTab : null]}
@@ -27,8 +27,8 @@ const TopBar = () => {
                     navigation.navigate('ForYouFeed');
                     setActiveTab('ForYouFeed');
                 }}>
-                <Icon name='happy-outline' size={25}></Icon>
-                <Text>For You</Text>
+                <Icon name='happy-outline' size={25} color="#FFFFFF"></Icon>
+                <Text style={{ color: '#FFFFFF' }}>For You</Text> 
             </TouchableOpacity>
             {/* <TouchableOpacity
                 style={[styles.tab, activeTab === 'GlobalFeed' ? styles.activeTab : null]}
@@ -56,27 +56,31 @@ const FeedPage = () => {
 
 const styles = StyleSheet.create({
     tab: {
-        flex: 1,
-        alignItems: 'center',
-        paddingVertical: 20,
+      flex: 1,
+      alignItems: 'center',
+      paddingVertical: 20,
+      backgroundColor: '#121212', // Changed to dark background color
     },
-
+  
     activeTab: {
-        borderBottomWidth: 2, 
-        borderBottomColor: 'black', 
+      borderBottomWidth: 2,
+      borderBottomColor: '#FFFFFF', // Changed to purple color for the active indicator
     },
-
+  
     topBar: {
-        position: "absolute",
-        top: 0,
-        flexDirection: "row",
-        backgroundColor: 'white'
+      position: "absolute",
+      top: 0,
+      flexDirection: "row",
+      backgroundColor: '#121212', // Changed to dark background color
+    },
+  
+    container: {
+      flex: 1,
+      height: '100%',
+      backgroundColor: '#121212', // Changed to dark background color
     },
 
-    container: {
-        flex: 1,
-        height: '100%',
-    },
-});
+    
+  });
 
 export default FeedPage;
