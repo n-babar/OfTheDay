@@ -126,13 +126,12 @@ const ForYouFeedPage = () => {
                 {/* Sort Options Button replaced with an image icon */}
                 <TouchableOpacity onPress={showSortOptions} style={styles.iconButton}>
                     <Image source={sortIcon} style={styles.icon} />
-                    <Text>Sort</Text>
+                    <Text style={styles.iconText}>Sort</Text>
                 </TouchableOpacity>
 
-                {/* Filter Options Button replaced with an image icon */}
                 <TouchableOpacity onPress={showFilterOptions} style={styles.iconButton}>
                     <Image source={filterIcon} style={styles.icon} />
-                    <Text>Filter</Text>
+                    <Text style={styles.iconText}>Filter</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.promptsContainer}>
@@ -164,7 +163,7 @@ const ForYouFeedPage = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'black', // Dark theme background color
         marginVertical: 80
     },
 
@@ -207,26 +206,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingVertical: 10,
+        paddingBottom: 5
     },
 
     button: {
         padding: 10,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#e0e0e0', // Consider changing for dark theme if this is used
         borderRadius: 5,
-    },
-
-    buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 10,
     },
 
     iconButton: {
         flexDirection: 'row',
-        alignItems: 'center', // Centers the content vertically
-        justifyContent: 'center', // Centers the content horizontally
-        backgroundColor: '#e0e0e0',
-        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFFFFF',
+        padding: 9,
         borderRadius: 5,
         width: 210
     },
@@ -234,14 +228,17 @@ const styles = StyleSheet.create({
     icon: {
         width: 25, 
         height: 25, 
-        marginRight: 5, // Adds spacing between icon and text
+        marginRight: 5,
     },
 
     noPostsText: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center', // For centering text horizontally
-    }
+        color: '#FFFFFF', // White text color for better contrast on dark background
+        textAlign: 'center',
+  
+    },
+    iconText: {
+        color: 'black', // Text color for icons set to white for better contrast
+    },
 });
 
 export default ForYouFeedPage;

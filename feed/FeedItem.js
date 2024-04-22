@@ -133,10 +133,10 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
             <View style={styles.actionsContainer}>
                 <TouchableOpacity style={styles.actionButton} onPress={handleUpvote}>
                     <View style={styles.iconView}>
-                        <Icon name={isLiked ? "heart" : "heart-outline"} size={20} color={isLiked ? "red" : "black"} />
+                        <Icon name={isLiked ? "heart" : "heart-outline"} size={20} color={isLiked ? "red" : "#FFFFFF"} />
                     </View>
                     <View style={styles.textView}>
-                        <Text style={styles.actionText}>{likesCount}</Text>
+                        <Text style={styles.actionText}>{likesCount}  </Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}                    onPress={async () => {
@@ -144,7 +144,7 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
                     setCommentModalVisible(true);}}
                 >
                     <View style={styles.iconView}>
-                        <Icon name="chatbubble-outline" size={20} />
+                        <Icon color="#FFFFFF" name="chatbubble-outline" size={20} />
                     </View>
                     <View style={styles.textView}>
                         <Text style={styles.actionText}>{commentsCount}</Text>
@@ -152,12 +152,12 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
                 </TouchableOpacity>
                 <View style={styles.actionButton}>
                     <View style={styles.iconView}>
-                        <Icon name="share-social-outline" size={20} />
+                        <Icon name="share-social-outline" size={20} color="#FFFFFF"/>
                     </View>
                 </View>
                 {currentUsername === username && (
                     <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(postId)}>
-                        <Icon name="trash-outline" size={20} />
+                        <Icon name="trash-outline" size={20} color="#FFFFFF"/>
                     </TouchableOpacity>
                 )}
                 <Modal
@@ -214,12 +214,13 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
 
 const styles = StyleSheet.create({
     feedItem: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#121212',
         borderRadius: 10,
         padding: 15,
-        marginBottom: 10,
+        marginBottom: 6,
+        marginTop: 0,
         elevation: 3,
-        shadowColor: '#000000',
+        shadowColor: '#FFFFFF',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 2,
@@ -241,21 +242,23 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: "#FFFFFF"
     },
 
     category: {
         fontSize: 14,
-        color: '#888888',
+        color: 'grey',
         marginBottom: 5,
     },
 
     text: {
         fontSize: 16,
+        color: "#FFFFFF"
     },
 
     feedImage: {
         width: '100%',
-        height: 200,
+        height: 330,
         borderRadius: 10,
         marginTop: 10,
     },
@@ -336,10 +339,10 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 40,
         width: '90%', // Increase the width of the modal
-        maxHeight: '90%', // Adjust the max height of the modal
-        minHeight: '75%', // Add a minHeight to ensure the modal is reasonably tall even with less content
+        height: '59%', // Adjust the max height of the modal
+        marginTop: -260
     },
 
     commentsContainer: {
@@ -365,6 +368,9 @@ const styles = StyleSheet.create({
         borderRadius: 5, // Round corners
         marginBottom: 10, // Space before the buttons
     },
+    actionText: {
+        color: "#FFFFFF"
+    }
 });
 
 export default FeedItem;
