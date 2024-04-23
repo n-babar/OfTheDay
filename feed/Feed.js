@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   
     activeTab: {
       borderBottomWidth: 2,
-      borderBottomColor: '#FFFFFF', // Changed to purple color for the active indicator
+      borderBottomColor: '#05452b', // Changed to purple color for the active indicator
     },
   
     topBar: {

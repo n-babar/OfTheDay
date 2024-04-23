@@ -232,10 +232,11 @@ const PostScreen = ({ route, navigation }) => {
                 maxLength={350}
                 onChangeText={setPostText}
                 value={postText}
+                placeholderTextColor={"grey"}
             />
             {/* Moved the button outside and below the TextInput */}
             <TouchableOpacity style={styles.multimediaButton} onPress={showMediaOptions}>
-                <Icon name="add-a-photo" size={40} color="#007AFF" />
+                <Icon name="add-a-photo" size={40} color="white" />
             </TouchableOpacity>
 
 
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        backgroundColor: 'white',
+        backgroundColor: '#121212',
         paddingBottom: 80,
     },
 
@@ -258,7 +259,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20, // Increased padding for more space
         paddingHorizontal: 15,
         borderBottomWidth: 1,
-        borderBottomColor: '#e1e1e1',
+        borderBottomColor: 'grey',
     },
 
     headerButton: {
@@ -270,6 +271,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         flex: 1, // This will make title center-aligned when text buttons have equal width
+        color: "white",
     },
 
     textInput: {
@@ -278,6 +280,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         fontSize: 16,
         textAlignVertical: 'top',
+        color: "white",
     },
 
     cancelButton: {

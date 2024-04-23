@@ -156,13 +156,13 @@ const FriendsFeedPage = () => {
                 {/* Sort Options Button replaced with an image icon */}
                 <TouchableOpacity onPress={showSortOptions} style={styles.iconButton}>
                     <Image source={sortIcon} style={styles.icon} />
-                    <Text>Sort</Text>
+                    <Text style={{ color: 'white' }}>Sort</Text>
                 </TouchableOpacity>
 
                 {/* Filter Options Button replaced with an image icon */}
                 <TouchableOpacity onPress={showFilterOptions} style={styles.iconButton}>
                     <Image source={filterIcon} style={styles.icon} />
-                    <Text>Filter</Text>
+                    <Text style={{ color: 'white' }}>Filter</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.promptsContainer}>
@@ -249,10 +249,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#05452b',
         padding: 9,
         borderRadius: 5,
-        width: 210
+        width: 210,
     },
 
     icon: {

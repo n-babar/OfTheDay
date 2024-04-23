@@ -261,7 +261,7 @@ const HomePage = ( {route, navigation} ) => {
                 <Text>             </Text>
                 <Text style={styles.headerText}>otd</Text>
                 <TouchableOpacity style={styles.settingsButton} onPress={() => setModalVisible(true)}>
-                    <Icon name="cog" size={24} color="black" />
+                    <Icon name="cog" size={24} color="white" />
                 </TouchableOpacity>
             </View>
             <View style={styles.profileContainer}>
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 34,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#05452b'
     },
 
     settingsButton: {
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     profileHandle: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: 'blue',
+        color: 'green',
     },
 
     profileDescription: {
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
     statsNumber: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'white'
+        color: '#05452b'
     },
 
     statsLabel: {
@@ -451,6 +451,7 @@ const styles = StyleSheet.create({
         borderTopColor: 'lightgrey',
 
         borderBottomColor: 'lightgrey',
+  
     },
 
     centeredView: {
@@ -462,7 +463,9 @@ const styles = StyleSheet.create({
 
     modalView: {
         margin: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#121212',
+        borderWidth: 1,
+        borderColor: "grey",
         borderRadius: 20,
         padding: 20,
         alignItems: 'center',
@@ -501,7 +504,9 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 13,
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        fontFamily: 'Helvetica-Oblique',
+        fontSize: 13,
     },
 
     noPostsText: {

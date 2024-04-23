@@ -19,7 +19,7 @@ const PromptOTDItem = ({ title, icon, answeredCount, navigation, isFavorite, onA
             <TouchableOpacity
                 style={styles.addButton}
                 onPress={isFavorite ? onRemove : onAdd}>
-                <Icon name={isFavorite ? "close-outline" : "add-outline"} size={20} color={isFavorite ? "red" : "green"} />
+                <Icon name={isFavorite ? "close-outline" : "add-outline"} size={20} color={isFavorite ? "white" : "white"} />
             </TouchableOpacity>
         </View>
     );
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         borderBottomWidth: 1,
-        borderBottomColor: '#e1e1e1',
-        backgroundColor: 'white',
+        borderBottomColor: 'grey',
+        backgroundColor: '#05452b',
         justifyContent: 'space-between',
     },
     mainContent: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     promptTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: "black",
+        color: "white",
     },
     promptCount: {
         fontSize: 14,
