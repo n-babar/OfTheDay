@@ -1,7 +1,7 @@
 // The FriendsFeedPage component displays posts from friends of the current user, with functionality to sort and filter posts based on preferences like votes and recency. It leverages the UserContext to access current user information and utilizes the database functions to fetch relevant posts and user details.
 
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, AppState } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, AppState, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
 import FeedItem from './FeedItem'; 
 import sortIcon from '../assets/sort-icon.png'; 
@@ -21,6 +21,7 @@ const FriendsFeedPage = () => {
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const isFocused = useIsFocused();
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(true); // Loading state
 
 
     // Combined function to sort and filter feed
@@ -39,11 +40,11 @@ const FriendsFeedPage = () => {
             updatedFeed = updatedFeed.filter(item => item.category === filterCategory);
         }
         setSortedAndFilteredFeed(updatedFeed);
-        //console.log({"sorted and filtered feed: ": sortedAndFilteredFeed});
     };
 
     const fetchPosts = async () => {
         try {
+            setIsLoading(true);
             // fetch all posts from database
             const posts_res = await getAllPosts();
             if (posts_res.failed) {
@@ -97,7 +98,7 @@ const FriendsFeedPage = () => {
             }
             setFriendsFeed(posts);
             //console.log({"posts data": friendsFeed});
-
+            setIsLoading(false);
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
@@ -118,36 +119,37 @@ const FriendsFeedPage = () => {
     }, [sortType, filterCategory, friendsFeed.length, refreshTrigger, isFocused]);
 
 
-
-    // display sorting options
     const showSortOptions = () => {
-        Alert.alert(
-            'Sort by',
-            'Select the sorting method',
-            [
-                { text: 'Number of Upvotes', onPress: () => setSortType('votes') },
-                { text: 'Recency', onPress: () => setSortType('recency') },
-                { text: 'Cancel', style: 'cancel' },
-            ],
-            { cancelable: true },
-        );
+        // Set loading state before changing the sort type
+        setIsLoading(true);
+        Alert.alert('Sort by', 'Select the sorting method', [
+            { text: 'Number of Upvotes', onPress: () => { setIsLoading(false); setSortType('votes') } },
+            { text: 'Recency', onPress: () => { setIsLoading(false); setSortType('recency') } },
+            { text: 'Cancel', style: 'cancel', onPress: () => setIsLoading(false) },
+        ], { cancelable: true });
     };
 
-    // display filtering options
+
     const showFilterOptions = () => {
-        Alert.alert(
-            'Filter by Category',
-            'Select a category to filter by',
-            [
-                ...OTDs.map(prompt => ({
-                    text: `${prompt.emoji} ${prompt.name} of the day`,
-                    onPress: () => setFilterCategory(prompt.name),
-                })),                
-                { text: 'Clear Filter', onPress: () => setFilterCategory('') },
-                { text: 'Cancel', style: 'cancel' },
-            ],
-            { cancelable: true },
-        );
+        // Set loading state before showing the filter options
+        setIsLoading(true);
+        
+        Alert.alert('Filter by Category', 'Select a category to filter by', [
+            ...OTDs.map(otd => ({
+                text: `${otd.emoji} ${otd.name} of the day`,
+                onPress: () => {
+                    // Set filter category and indicate loading has finished
+                    setFilterCategory(otd.name);
+                    setIsLoading(false);
+                },
+            })),                
+            { text: 'Clear Filter', onPress: () => {
+                // Clear filter category and indicate loading has finished
+                setFilterCategory('');
+                setIsLoading(false);
+            } },
+            { text: 'Cancel', style: 'cancel', onPress: () => setIsLoading(false) },
+        ], { cancelable: true });
     };
 
     return (
@@ -166,25 +168,29 @@ const FriendsFeedPage = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.promptsContainer}>
-    {sortedAndFilteredFeed.length > 0 ?
-    sortedAndFilteredFeed.map((item, index) => (
+            {isLoading ? (
+                    <ActivityIndicator size="large" color="#05452b" />
+                ) : sortedAndFilteredFeed.length > 0 ? (
+                    sortedAndFilteredFeed.map((item, index) => (
         <FeedItem
-        key={index}
-        postId={item.id}
-        pfp = {item.pfp}
-        name={item.name}
-        username={item.username_temp}
-        category={item.category}
-        text={item.text}
-        image={item.image}
-        emoji={item.emoji}
-        num_likes={item.num_likes}
-        num_comments={item.num_comments}
-        created_at={item.created_at}
-        currentUsername={currentUser}
+            key={index}
+            postId={item.id}
+            pfp = {item.pfp}
+            name={item.name}
+            username={item.username_temp}
+            category={item.category}
+            text={item.text}
+            image={item.image}
+            emoji={item.emoji}
+            num_likes={item.num_likes}
+            num_comments={item.num_comments}
+            created_at={item.created_at}
+            currentUsername={currentUser}
         />
-    )):
-    <Text style={styles.noPostsText}>Loading or Find Friends!</Text>}
+        ))
+    ) : (
+        <Text style={styles.noPostsText}>Loading or Find Friends!</Text>
+    )}
 </View>
         </ScrollView>
     );

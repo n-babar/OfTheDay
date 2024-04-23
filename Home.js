@@ -1,7 +1,7 @@
 // Main home screen component displaying user profile details, including functionality for editing profile, changing profile picture, and viewing followers/following counts.
 
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal, Pressable, Alert, ActivityIndicator } from 'react-native';
 import { UserContext } from './userContext';
 import { getUser } from './database';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
@@ -26,6 +26,7 @@ const HomePage = ( {route, navigation} ) => {
     const [userPosts, setUserPosts] = useState([]);
     const otdCache = useRef({});
     const [refreshTrigger, setRefreshTrigger] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const uploadImage = async (uri) => {
@@ -175,6 +176,7 @@ const HomePage = ( {route, navigation} ) => {
 
     // Function to fetch posts specifically for the logged-in user
     const fetchPostsForUser = async () => {
+        setIsLoading(true);
         if (!currentUser) return;
 
         const result = await fetchUserPosts(currentUser);
@@ -203,8 +205,10 @@ const HomePage = ( {route, navigation} ) => {
             // Wait for all OTD details to be fetched and assigned
             await Promise.all(otdPromises);
             setUserPosts(posts);
+            setIsLoading(false);
         } else {
             console.error("Failed to fetch posts for user");
+            setIsLoading(false);
         }
     };
 
@@ -305,8 +309,15 @@ const HomePage = ( {route, navigation} ) => {
 
 
             <View>
-                {userPosts.length > 0 ? userPosts.map((item, index) => (
-                        <FeedItem
+    {isLoading ? (
+        <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#05452b" />
+        </View>
+    ) : (
+        <View>
+            {userPosts.length > 0 ? (
+                userPosts.map((item, index) => (
+                    <FeedItem
                         key={index}
                         postId={item.id}
                         pfp={item.pfp}
@@ -322,8 +333,14 @@ const HomePage = ( {route, navigation} ) => {
                         currentUsername={currentUser}
                         onDelete={() => setRefreshTrigger(prev => !prev)}
                     />
-                )) : <Text style={styles.noPostsText}>Loading or you have no posts!</Text>}
-            </View>
+                ))
+            ) : (
+                <Text style={styles.noPostsText}>Loading or you have no posts!</Text>
+            )}
+        </View>
+    )}
+</View>
+
 
             <Modal
                 animationType="slide"
