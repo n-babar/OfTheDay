@@ -187,9 +187,9 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 100,
         fontWeight: 'bold',
-        color: '#05452b',
+        color: 'white',
         marginTop: -210,
-        backgroundColor: "#121212",
+        backgroundColor: "#061b26",
         borderWidth: 3,
         borderColor: "grey",
         borderRadius: 10,
