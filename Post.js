@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     },
 
     promptOfTheDayContainer: {
-        backgroundColor: 'white',
+        backgroundColor: '#05452b',
         marginLeft: 0,
         marginTop: 3,
     },
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginLeft: 3, 
         fontWeight: 'bold',
-        color: "black"
+        color: "white"
     },
 
     promptOfTheDayHeader: {
@@ -362,8 +362,8 @@ const styles = StyleSheet.create({
     },
 
     activeTab: {
-        borderBottomWidth: 2,
-        borderBottomColor: 'white',
+        borderBottomWidth: 4,
+        borderBottomColor: '#05452b',
     },
 });
 

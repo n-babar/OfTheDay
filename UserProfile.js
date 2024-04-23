@@ -134,7 +134,7 @@ const UserProfilePage = ({ route, navigation }) => {
                 <Text style={styles.profileLocation}>{user.location}</Text>
                 <Text style={styles.profileDescription}>{user.bio}</Text>
                 {/* Follow Button */}
-                <TouchableOpacity style={styles.followButton} onPress={toggleFollow}>
+                <TouchableOpacity style={[styles.followButton, { backgroundColor: isFollowing ? 'grey' : '#05452b'}]} onPress={toggleFollow}>
                     <Text style={styles.followButtonText}>{isFollowing ? 'Unfollow' : 'Follow'}</Text>
                 </TouchableOpacity>
                 {/* Following and Followers */}
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 
     followButton: {
         marginTop: 10,
-        backgroundColor: '#007bff',
+        backgroundColor: '#05452b',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 34,
         fontWeight: 'bold',
-        color: "white",
+        color: "#05452b",
     },
 
     profileContainer: {
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     profileHandle: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: 'blue',
+        color: 'green',
     },
 
     profileDescription: {
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     statsNumber: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: "white",
+        color: "#05452b",
     },
 
     statsLabel: {
@@ -321,6 +321,8 @@ const styles = StyleSheet.create({
         marginBottom: 13,
         textAlign: 'center',
         color: "white",
+        fontFamily: 'Helvetica-Oblique',
+        fontSize: 13,
     },
 });
 

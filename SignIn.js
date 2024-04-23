@@ -122,6 +122,10 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
 
     return (
         <View style={styles.container}>
+            <View style={styles.headerContainer}>
+          
+                <Text style={styles.headerText}>otd</Text>
+            </View>
             <Text style={styles.title}>Welcome</Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
@@ -179,16 +183,30 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
 };
 
 const styles = StyleSheet.create({
+
+    headerText: {
+        fontSize: 100,
+        fontWeight: 'bold',
+        color: '#05452b',
+        marginTop: -210,
+        backgroundColor: "#121212",
+        borderWidth: 3,
+        borderColor: "grey",
+        borderRadius: 10,
+        padding: 10,
+    },
+
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#121212',
     },
 
     title: {
         fontSize: 24,
         marginBottom: 20,
+        color: "white"
     },
 
     buttonContainer: {
@@ -221,10 +239,12 @@ const styles = StyleSheet.create({
     },
 
     modalContent: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#121212',
         padding: 20,
         borderRadius: 10,
         width: '80%',
+        borderWidth: 1,
+        borderColor: "grey",
     },
 
     modalTitle: {
@@ -232,6 +252,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
         textAlign: 'center',
+        color: "white",
     },
 
     input: {

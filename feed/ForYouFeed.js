@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#05452b',
         padding: 9,
         borderRadius: 5,
         width: 210
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   
     },
     iconText: {
-        color: 'black', // Text color for icons set to white for better contrast
+        color: 'white', // Text color for icons set to white for better contrast
     },
 });
 

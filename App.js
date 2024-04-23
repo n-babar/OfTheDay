@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 
   activeTab: {
     borderTopWidth: 2,
-    borderTopColor: '#FFFFFF', // new accent color for active tab
+    borderTopColor: '#05452b', // new accent color for active tab
   },
 
   container: {
@@ -92,6 +92,11 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFFFF', // new text color for better contrast
   },
+
+  tabText: {
+    color: '#FFFFFF', // new text color for better contrast
+  },
+
 });
 
 export default function App() {

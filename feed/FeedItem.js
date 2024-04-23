@@ -88,7 +88,7 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
         const success = await postCommentToBackend(postId, currentUser, commentText, profilePicUrl);
         if (success) {
             setCommentText(''); // Clear the input field
-            setCommentModalVisible(false); // Close the modal
+            // setCommentModalVisible(false); // Close the modal
             // Re-fetch comments count and comments list
             await fetchCommentsAndUpdateState(postId);
         }
@@ -196,7 +196,8 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
                                 multiline={true} // Allows multiple lines of text
                             />
                             <View style={{width: '100%', paddingHorizontal: 10}}>
-                            <Button onPress={postComment} title="Post Comment" />
+                            <Button onPress={postComment} 
+                            title="Post Comment" />
                             {/* Cancel Button */}
                             <Button
                                 onPress={() => setCommentModalVisible(false)}
@@ -314,10 +315,12 @@ const styles = StyleSheet.create({
     commentUsername: {
         fontWeight: 'bold',
         marginRight: 5,
+        color: "white",
     },
 
     commentContent: {
         flex: 1, // Allows the comment to fill available space, pushing timestamp to the edge
+        color: "white",
     },
 
     commentTimestamp: {
@@ -327,8 +330,10 @@ const styles = StyleSheet.create({
     },
 
     modalView: {
+        borderColor: "grey",
+        borderWidth: 1,
         margin: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#121212',
         borderRadius: 20,
         padding: 25,
         alignItems: 'stretch',
@@ -367,6 +372,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5, // Round corners
         marginBottom: 10, // Space before the buttons
+        color: "white",
     },
     actionText: {
         color: "#FFFFFF"

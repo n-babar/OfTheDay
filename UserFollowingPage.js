@@ -55,7 +55,7 @@ const UserFollowingPage = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
 
     header: {
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: "white",
     },
 
     followingItem: {
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     followingName: {
         fontWeight: 'bold',
         fontSize: 16,
+        color: "white",
     },
 
     followingUsername: {
