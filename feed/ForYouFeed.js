@@ -1,7 +1,7 @@
 // The GlobalFeedPage component fetches and displays posts from all users in a global feed, offering sorting and filtering functionalities based on votes, recency, and categories.
 
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
 import FeedItem from './FeedItem'; 
 import sortIcon from '../assets/sort-icon.png'; 
@@ -12,13 +12,13 @@ import { getUser, getAllPosts, getAllOTDs, getAllUserFavoriteOtds } from '../dat
 const ForYouFeedPage = () => {
     const { currentUser } = useContext(UserContext);
     const [globalFeed, setGlobalFeed] = useState([]);
-    const [sortedAndFilteredFeed, setSortedAndFilteredFeed] = useState(globalFeed); // Initial feed data
-    const [sortType, setSortType] = useState('recency'); // Default sort by recency
-    const [filterCategory, setFilterCategory] = useState(''); // Track the current filter
+    const [sortedAndFilteredFeed, setSortedAndFilteredFeed] = useState(globalFeed);
+    const [sortType, setSortType] = useState('recency');
+    const [filterCategory, setFilterCategory] = useState('');
     const [OTDs, setOTDs] = useState([]);
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const [favoriteOTDIds, setFavoriteOTDIds] = useState(new Set());
-
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (currentUser) {
@@ -30,38 +30,35 @@ const ForYouFeedPage = () => {
         }
     }, [currentUser]);
     
-    // Re-sort and re-filter feed whenever sortType or filterCategory changes
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchData = async () => {
             try {
-                const resPosts = await getAllPosts();
-                const resOTDs = await getAllOTDs();
-                if (!resPosts.failed && !resOTDs.failed) {
-                    let filteredOTDs = resOTDs.otds.filter(otd => favoriteOTDIds.has(otd.id));
-                    setOTDs(filteredOTDs);  // Ensure OTD list is filtered by user's favorites
-
+                // Fetch data in the background
+                const [postsResponse, otdsResponse] = await Promise.all([
+                    getAllPosts(),
+                    getAllOTDs()
+                ]);
     
-                    let posts = await Promise.all(resPosts.posts.map(async post => {
-
+                if (!postsResponse.failed && !otdsResponse.failed) {
+                    const filteredOTDs = otdsResponse.otds.filter(otd => favoriteOTDIds.has(otd.id));
+                    setOTDs(filteredOTDs);
     
+                    const posts = await Promise.all(postsResponse.posts.map(async post => {
+                        // Process each post
                         if (post.username === currentUser) {
-                            return null;  // Skip this post if it's by the current user
+                            return null;
                         }
-        
-                        let user = await getUser(post.username);
+                        const user = await getUser(post.username);
                         if (user.failed) {
                             console.error({"Failed to fetch user:": post.username});
-                            return null;  // Skip this post if user data cannot be fetched
+                            return null;
                         }
                         
-                        let otd = filteredOTDs.find(otd => otd.id === post.otd_id);
+                        const otd = filteredOTDs.find(otd => otd.id === post.otd_id);
                         if (!otd) {
-                            return null;  // Skip this post if OTD data is not in the filtered list
+                            return null;
                         }
-
-                        // console.log(user.user)
-                        // console.log(user.user[0].username)
-
+    
                         return {
                             ...post,
                             pfp: user.user[0].profile_pic,
@@ -71,20 +68,18 @@ const ForYouFeedPage = () => {
                             emoji: otd.emoji
                         };
                     }));
-            
-                    posts = posts.filter(post => post !== null);  // Remove any nullified posts
-                    setGlobalFeed(posts);
-                    sortAndFilterFeed(posts, sortType, filterCategory);
+    
+                    const filteredPosts = posts.filter(post => post !== null);
+                    setGlobalFeed(filteredPosts);
+                    sortAndFilterFeed(filteredPosts, sortType, filterCategory);
+                    setIsLoading(false);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
-
-        fetchPosts();
-        
-
-
+    
+        fetchData();
     }, [sortType, filterCategory, favoriteOTDIds]); 
 
     const sortAndFilterFeed = (posts, sortType, filterCategory) => {
@@ -101,29 +96,49 @@ const ForYouFeedPage = () => {
     };
 
     const showSortOptions = () => {
+        // Set loading state before changing the sort type
+        setIsLoading(true);
         Alert.alert('Sort by', 'Select the sorting method', [
-            { text: 'Number of Upvotes', onPress: () => setSortType('votes') },
-            { text: 'Recency', onPress: () => setSortType('recency') },
-            { text: 'Cancel', style: 'cancel' },
+            { text: 'Number of Upvotes', onPress: () => { setIsLoading(false); setSortType('votes') } },
+            { text: 'Recency', onPress: () => { setIsLoading(false); setSortType('recency') } },
+            { text: 'Cancel', style: 'cancel', onPress: () => setIsLoading(false) },
         ], { cancelable: true });
     };
-
+    
 
     const showFilterOptions = () => {
+        // Set loading state before showing the filter options
+        setIsLoading(true);
+        
         Alert.alert('Filter by Category', 'Select a category to filter by', [
             ...OTDs.map(otd => ({
                 text: `${otd.emoji} ${otd.name} of the day`,
-                onPress: () => setFilterCategory(otd.name),
+                onPress: () => {
+                    // Set filter category and indicate loading has finished
+                    setFilterCategory(otd.name);
+                    setIsLoading(false);
+                },
             })),                
-            { text: 'Clear Filter', onPress: () => setFilterCategory('') },
-            { text: 'Cancel', style: 'cancel' },
+            { text: 'Clear Filter', onPress: () => {
+                // Clear filter category and indicate loading has finished
+                setFilterCategory('');
+                setIsLoading(false);
+            } },
+            { text: 'Cancel', style: 'cancel', onPress: () => setIsLoading(false) },
         ], { cancelable: true });
     };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 10000);
+
+        return () => clearTimeout(timeout);
+    }, []);
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.buttonsContainer}>
-                {/* Sort Options Button replaced with an image icon */}
                 <TouchableOpacity onPress={showSortOptions} style={styles.iconButton}>
                     <Image source={sortIcon} style={styles.icon} />
                     <Text style={styles.iconText}>Sort</Text>
@@ -135,26 +150,30 @@ const ForYouFeedPage = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.promptsContainer}>
-                {sortedAndFilteredFeed.length > 0 ?
-                sortedAndFilteredFeed.map((item, index) => (
-                    <FeedItem
-                        key={index}
-                        postId={item.id}
-                        pfp={item.pfp}
-                        name={item.name}
-                        username={item.username_temp}
-                        category={item.category}
-                        text={item.text}
-                        image={item.image}
-                        emoji={item.emoji}
-                        num_likes={item.num_likes}
-                        num_comments={item.num_comments}
-                        created_at={item.created_at}
-                        currentUsername={currentUser}
-                        onDelete={() => setRefreshTrigger(prev => !prev)}
-                    />
-                )):
-                <Text style={styles.noPostsText}>Loading</Text>}
+                {isLoading ? (
+                    <ActivityIndicator size="large" color="#05452b" />
+                ) : sortedAndFilteredFeed.length > 0 ? (
+                    sortedAndFilteredFeed.map((item, index) => (
+                        <FeedItem
+                            key={index}
+                            postId={item.id}
+                            pfp={item.pfp}
+                            name={item.name}
+                            username={item.username_temp}
+                            category={item.category}
+                            text={item.text}
+                            image={item.image}
+                            emoji={item.emoji}
+                            num_likes={item.num_likes}
+                            num_comments={item.num_comments}
+                            created_at={item.created_at}
+                            currentUsername={currentUser}
+                            onDelete={() => setRefreshTrigger(prev => !prev)}
+                        />
+                    ))
+                ) : (
+                    null // Do not render anything if isLoading is true
+                )}
             </View>
         </ScrollView>
     );
@@ -234,7 +253,6 @@ const styles = StyleSheet.create({
     noPostsText: {
         color: '#FFFFFF', // White text color for better contrast on dark background
         textAlign: 'center',
-  
     },
     iconText: {
         color: 'white', // Text color for icons set to white for better contrast

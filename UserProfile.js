@@ -1,7 +1,7 @@
 // Profile view screen that displays detailed information about a specific user, including options to follow or unfollow, and navigation to their followers and following lists.
 
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { getUser, getFriendships, getFollowers, checkIfFollowing, followUser, unfollowUser, fetchUserPosts, getOTD } from './database';
 import { UserContext } from './userContext'
 import FeedItem from './feed/FeedItem';
@@ -16,6 +16,8 @@ const UserProfilePage = ({ route, navigation }) => {
     const [isFollowing, setIsFollowing] = useState(false);
     const [userPosts, setUserPosts] = useState([]);
     const otdCache = useRef({});
+    const [isLoading, setIsLoading] = useState(true);
+
 
     // Fetch following and followers count
     const fetchFollowingAndFollowers = async () => {
@@ -33,6 +35,7 @@ const UserProfilePage = ({ route, navigation }) => {
 
         // Function to fetch posts specifically for the logged-in user
         const fetchPostsForUser = async () => {
+            setIsLoading(true);
             if (!username) return;
     
             const result = await fetchUserPosts(username);
@@ -62,8 +65,10 @@ const UserProfilePage = ({ route, navigation }) => {
                 // Wait for all OTD details to be fetched and assigned
                 await Promise.all(otdPromises);
                 setUserPosts(posts);
+                setIsLoading(false);
             } else {
                 console.error("Failed to fetch posts for user");
+                setIsLoading(false);
             }
         };
     
@@ -153,25 +158,40 @@ const UserProfilePage = ({ route, navigation }) => {
                 </View>
             </View>
 
-            <View>
-                {userPosts.length > 0 ? userPosts.map((item, index) => (
-                        <FeedItem
-                        key={index}
-                        postId={item.id}
-                        pfp={item.pfp}
-                        name={item.name}
-                        username={item.username}
-                        category={item.category}
-                        text={item.text}
-                        image={item.image}
-                        emoji={item.emoji}
-                        num_likes={item.num_likes}
-                        num_comments={item.num_comments}
-                        created_at={item.created_at}
-                        currentUsername={currentUser}
-                    />
-                )) : <Text style={styles.noPostsText}>Loading or you have no posts!</Text>}
-            </View>
+            
+
+                    <View>
+            {isLoading ? (
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#05452b" />
+                </View>
+            ) : (
+                <View>
+                    {userPosts.length > 0 ? (
+                        userPosts.map((item, index) => (
+                            <FeedItem
+                                key={index}
+                                postId={item.id}
+                                pfp={item.pfp}
+                                name={item.name}
+                                username={item.username}
+                                category={item.category}
+                                text={item.text}
+                                image={item.image}
+                                emoji={item.emoji}
+                                num_likes={item.num_likes}
+                                num_comments={item.num_comments}
+                                created_at={item.created_at}
+                                currentUsername={currentUser}
+                            />
+                        ))
+                    ) : (
+                        <Text style={styles.noPostsText}>Loading or you have no posts!</Text>
+                    )}
+                </View>
+            )}
+        </View>
+
         </ScrollView>
     );
 };
@@ -323,6 +343,14 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: 'Helvetica-Oblique',
         fontSize: 13,
+    },
+
+    noPostsText: {
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        color: 'white'
     },
 });
 
