@@ -53,6 +53,7 @@ Anapaula |  |  |
 - Users can and remove their favorite OTDs on the post tab.
 - For you page with a default filter of all your interests. Only gives you the option to filter additionally by specific interests.
 - Users can log out.
+- users can follow and unfollow other users on other user's followers/following list just like you can do you own prrofile's lists
 - Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
 
 ### TODO - Push to testflight?
@@ -64,11 +65,10 @@ Anapaula |  |  |
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
 - making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? (maybe easier to make it a screen but harder for the dynamic animtion?)
+- have users be redirected to accounts of other users or their own aaccount when you click on their profile in the feed (might be eaiser but idk)
 - When registering, give users the option to select their favorite OTDS (easier).
 - when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
-- give users the option to follow and unfollow other users on the list of their followers and following like you can do you onw your own account (easier, just reuse code).
-- have users be redirected to accounts of other users or their own aaccount when you click on their profile in the feed (might be eaiser but idk)
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
 - OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts (easier)
 - Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts)
