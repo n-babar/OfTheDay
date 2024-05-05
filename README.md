@@ -49,21 +49,23 @@ Anapaula |  |  |
 - A user can view their own profile on the profile tab. They can see their first name, last name, bio, username, location, and profile pic. They can also see how many followers and people they following have. One can click on these numbers to display a list of the people they follow/are followed by. A user can then remove followers and following people they follow if they want.
 - A user can also edit their profile if they click on the settings button, specifically change their first/last name, bio, location, password, and set a different profile pic.
 - Can view all your own posts on your own page.
-- Can  a view all of a user's post on their page.
+- Can view all of a user's post on their page.
 - Users can and remove their favorite OTDs on the post tab.
 - For you page with a default filter of all your interests. Only gives you the option to filter additionally by specific interests.
+- Users can log out.
+- Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
 
 ### TODO - Push to testflight?
 
 ## Bugs to fix:
-- big bug where friends feed does not auto reload when you naviagte to it despite global feed auto reloading
+- Loading screen fixed most of the feed bugs. still slightly buggy. when liking on for you page, takes loading following page twice instead of once to accuarately reflect changes the increased number of likes.
 - 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
-- When changing sorting, sometimes, the number of likes and comments is buggy, (it will display the accurate number for the post that was in that previous position).
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
-- add a loading screen (hard maybe idk???)
+- making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? (maybe easier to make it a screen but harder for the dynamic animtion?)
 - When registering, give users the option to select their favorite OTDS (easier).
+- when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
 - give users the option to follow and unfollow other users on the list of their followers and following like you can do you onw your own account (easier, just reuse code).
 - have users be redirected to accounts of other users or their own aaccount when you click on their profile in the feed (might be eaiser but idk)
