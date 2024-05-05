@@ -17,8 +17,14 @@ const FollowersPage = ({ navigation, route }) => {
         try { 
             const result = await getFollowersDetails(username);
             if (!result.failed) {
-
-                setFollowers(result.followers);
+                const sortedFollowers = result.followers.sort((a, b) => {
+                    if (a.first_name.toLowerCase() === b.first_name.toLowerCase()) {
+                        // If first names are equal, sort by last name
+                        return a.last_name.toLowerCase().localeCompare(b.last_name.toLowerCase());
+                    }
+                    return a.first_name.toLowerCase().localeCompare(b.first_name.toLowerCase());
+                });
+                setFollowers(sortedFollowers);
             }
         } catch (error) {
             console.error("Error fetching followers:", error);
