@@ -16,7 +16,15 @@ const FollowingPage = ({ navigation, route }) => {
         try { 
             const result = await getFollowingDetails(username);
             if (!result.failed) {
-                setFollowing(result.following);
+                // Sort the following list by first name and last name
+                const sortedFollowing = result.following.sort((a, b) => {
+                    if (a.first_name.toLowerCase() === b.first_name.toLowerCase()) {
+                        // If first names are equal, sort by last name
+                        return a.last_name.toLowerCase().localeCompare(b.last_name.toLowerCase());
+                    }
+                    return a.first_name.toLowerCase().localeCompare(b.first_name.toLowerCase());
+                });
+                setFollowing(sortedFollowing);
             }
         } catch (error) {
             console.error("Error fetching following:", error);
