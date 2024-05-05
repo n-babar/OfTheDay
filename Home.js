@@ -256,7 +256,7 @@ const HomePage = ( {route, navigation} ) => {
     const handleLogout = () => {
         setModalVisible(false);
         setCurrentUser(null);
-        setActiveTab("Sign In");
+        navigation.navigate('Sign In');
     };
 
     return (
