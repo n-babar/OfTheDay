@@ -4,12 +4,14 @@ import React, { useState, useContext } from 'react';
 import { View, TextInput, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import { searchUsersByUsernamePrefix } from './database'; 
 import { UserContext } from './userContext';
+import { useTab } from './TabContext';
 
-const MailPage = ( {navigation, route} ) => {
+
+const MailPage = ( {navigation} ) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const { currentUser } = useContext(UserContext);
-    const { setActiveTab } = route.params;
+    const { changeTab } = useTab();
 
     const handleSearchChange = async (query) => {
         setSearchQuery(query);
@@ -46,7 +48,7 @@ const MailPage = ( {navigation, route} ) => {
                 <TouchableOpacity key={index} 
                 onPress={() => {
                     if (user.username === currentUser) {
-                        setActiveTab('Profile');
+                        changeTab('Profile');
                         navigation.navigate('Profile');
                     } else {
                         navigation.navigate('User Profile Page', { username: user.username });

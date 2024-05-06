@@ -8,9 +8,12 @@ import Icon from 'react-native-vector-icons/Ionicons.js'
 import { UserContext, UserProvider } from './userContext.js';
 import SignIn from './SignIn.js';
 import ErrorMessage from './ErrorMessage.js';
+import { navigationRef } from './NavigationRef';
+import { TabProvider, useTab } from './TabContext';
 
-const AppBottomBar = ({ activeTab, setActiveTab }) => {
+const AppBottomBar = () => {
   const navigation = useNavigation();
+  const { activeTab, setActiveTab, changeTab } = useTab();
   
   return (
     <View style={styles.bottomBar}> 
@@ -18,7 +21,7 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
         style={[styles.tab, activeTab === 'Feed' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Feed');
-          setActiveTab('Feed');
+          changeTab('Feed');
         }}>
         <Icon name='list' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Feed</Text>
@@ -27,7 +30,7 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
         style={[styles.tab, activeTab === 'Post' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Post');
-          setActiveTab('Post');
+          changeTab('Post');
         }}>
         <Icon name='add-circle' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Post</Text>
@@ -35,8 +38,8 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
       <TouchableOpacity 
         style={[styles.tab, activeTab === 'Search' && styles.activeTab]}
         onPress={() => {
-          navigation.navigate('Search', { setActiveTab: setActiveTab });
-          setActiveTab('Search');
+          navigation.navigate('Search');
+          changeTab('Search');
         }}>
         <Icon name='search' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Search</Text>
@@ -45,7 +48,7 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
         style={[styles.tab, activeTab === 'Profile' && styles.activeTab]}
         onPress={() => {
           navigation.navigate('Profile');
-          setActiveTab('Profile');
+          changeTab('Profile');
         }}>
         <Icon name='person' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Profile</Text>
@@ -53,6 +56,7 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   tab: {
@@ -104,19 +108,27 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    console.log({"current errorMessage": errorMessage});
+
   }, [errorMessage]);
 
-  return (
+ return (
     <UserProvider>
-      <NavigationContainer>
-      {activeTab == "Sign In" && (<SignIn setActiveTab={setActiveTab} setErrorMessage={setErrorMessage}></SignIn>)}
-      {activeTab != "Sign In" && (<View style={styles.container}>
-        <AppStack />
-        <AppBottomBar activeTab={activeTab} setActiveTab={setActiveTab}/>
-      </View>)}
-      {errorMessage != "" && (<ErrorMessage message={errorMessage} setErrorMessage={setErrorMessage}/>)}
-    </NavigationContainer>
+      <TabProvider>
+        <NavigationContainer ref={navigationRef}>
+          {/* Ensure the TabProvider context is available for SignIn */}     
+            {activeTab === "Sign In" ? (
+              <SignIn setActiveTab={setActiveTab} setErrorMessage={setErrorMessage} />
+            ) : (
+              <View style={styles.container}>
+                <AppStack />
+                <AppBottomBar />
+              </View>
+            )}
+          {errorMessage !== "" && (
+            <ErrorMessage message={errorMessage} setErrorMessage={setErrorMessage} />
+          )}
+        </NavigationContainer>
+      </TabProvider>
     </UserProvider>
   );
 }
