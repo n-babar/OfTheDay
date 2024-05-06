@@ -11,6 +11,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { fetchUserPosts, getOTD } from './database';
 import FeedItemProfiles from './FeedItemProfiles';
+import { useTab } from './TabContext';
 
 const CLOUDINARY_CLOUD_NAME = 'dybcyj2qc';
 const CLOUDINARY_UPLOAD_PRESET = 'iaa4ymix';
@@ -27,6 +28,8 @@ const HomePage = ( {route, navigation} ) => {
     const otdCache = useRef({});
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const { changeTab } = useTab();
+    
 
 
     const uploadImage = async (uri) => {
@@ -256,7 +259,12 @@ const HomePage = ( {route, navigation} ) => {
     const handleLogout = () => {
         setModalVisible(false);
         setCurrentUser(null);
-        navigation.navigate('Sign In');
+        setActiveTab("Sign In");  // Reset tab context
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Sign In' }],
+        });
+        changeTab("Sign In");
     };
 
     return (

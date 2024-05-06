@@ -6,9 +6,10 @@ import { createNavigationContainerRef, useNavigation } from '@react-navigation/n
 import { addUserToDatabase, checkUsernameExists, verifyLoginAttempt } from './database';
 import { UserContext } from './userContext';
 import TermsModal from './Terms';
+import { navigate } from './NavigationRef';
+import { useTab } from './TabContext';
 
 const SignIn = ({ setActiveTab, setErrorMessage }) => {
-    const navigation = useNavigation();
     const [loginVisible, setLoginVisible] = useState(false);
     const [registerVisible, setRegisterVisible] = useState(false);
     const [username, setUsername] = useState("");
@@ -17,6 +18,7 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
     const [termsVisible, setTermsVisible] = useState(false);
     const [accept, setAccept] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const { changeTab } = useTab();  // Using changeTab from TabContext
 
     // for password checking
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
@@ -44,8 +46,9 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
             //console.log({"You're valid asf": true})
     
             setCurrentUser(username);
-            navigation.navigate('Feed');
-            setActiveTab('Feed'); 
+            navigate('Feed');
+            setActiveTab('Feed');
+            changeTab('Feed'); 
         }
     }
 
@@ -106,8 +109,9 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
                 const success = await addUserToDatabase(username, password);
                 if (success) {
                     setCurrentUser(username);
-                    navigation.navigate('Feed');
-                    setActiveTab('Feed');
+                    navigate('Feed');
+                    
+                    changeTab('Feed'); 
                     setAccept(false); // Reset the accept state to prevent future unintended registrations
                 } else {
                     setErrorMessage("Failed to create an account. Please try again.");
@@ -118,7 +122,7 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
         if (accept) {
             performRegistration();
         }
-    }, [accept, username, password, setCurrentUser, navigation, setActiveTab]);
+    }, [accept, username, password, setCurrentUser]);
 
     return (
         <View style={styles.container}>
