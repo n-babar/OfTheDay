@@ -10,7 +10,7 @@ import { getFriendships, getFollowers, updateUserProfile } from './database';
 import { useFocusEffect } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { fetchUserPosts, getOTD } from './database';
-import FeedItem from './feed/FeedItem';
+import FeedItemProfiles from './FeedItemProfiles';
 
 const CLOUDINARY_CLOUD_NAME = 'dybcyj2qc';
 const CLOUDINARY_UPLOAD_PRESET = 'iaa4ymix';
@@ -317,7 +317,7 @@ const HomePage = ( {route, navigation} ) => {
         <View>
             {userPosts.length > 0 ? (
                 userPosts.map((item, index) => (
-                    <FeedItem
+                    <FeedItemProfiles
                         key={index}
                         postId={item.id}
                         pfp={item.pfp}

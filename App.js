@@ -35,7 +35,7 @@ const AppBottomBar = ({ activeTab, setActiveTab }) => {
       <TouchableOpacity 
         style={[styles.tab, activeTab === 'Search' && styles.activeTab]}
         onPress={() => {
-          navigation.navigate('Search');
+          navigation.navigate('Search', { setActiveTab: setActiveTab });
           setActiveTab('Search');
         }}>
         <Icon name='search' size={25} color="#FFFFFF"></Icon>

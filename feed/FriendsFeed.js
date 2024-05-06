@@ -10,7 +10,7 @@ import { UserContext } from '../userContext';
 import { getUser, getAllPosts, getAllOTDs, getFriendships } from '../database';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
-const FriendsFeedPage = () => {
+const FriendsFeedPage = ({navigation}) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     //console.log({"current user from posts:": currentUser});
     const [friendsFeed, setFriendsFeed] = useState([]);
@@ -20,8 +20,8 @@ const FriendsFeedPage = () => {
     const [OTDs, setOTDs] = useState([]);
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const isFocused = useIsFocused();
-    const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(true); // Loading state
+
 
 
     // Combined function to sort and filter feed
@@ -77,6 +77,7 @@ const FriendsFeedPage = () => {
 
                 // set user data
                 let user = user_res.user[0];
+                posts[i].username_temp = user.username;
                 posts[i].pfp = user.profile_pic;
                 posts[i].name = user.first_name + ' ' + user.last_name;
 
@@ -105,9 +106,6 @@ const FriendsFeedPage = () => {
     };
 
 
-
-
-    
     // Re-sort and re-filter feed whenever sortType or filterCategory changes
     useEffect(() => {
         
@@ -152,6 +150,8 @@ const FriendsFeedPage = () => {
         ], { cancelable: true });
     };
 
+    // console.log('Navigation inside FeedItem:', navigation);
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.buttonsContainer}>
@@ -186,6 +186,7 @@ const FriendsFeedPage = () => {
             num_comments={item.num_comments}
             created_at={item.created_at}
             currentUsername={currentUser}
+            navigation={navigation}
         />
         ))
     ) : (

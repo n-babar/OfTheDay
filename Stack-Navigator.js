@@ -12,6 +12,9 @@ import FollowingPage from './FollowingPage';
 import UserProfilePage from './UserProfile.js';
 import UserFollowingPage from './UserFollowingPage.js';
 import UserFollowersPage from './UserFollowersPage.js';
+import FriendsFeedPage from './feed/FriendsFeed.js';
+import ForYouFeedPage from './feed/ForYouFeed.js';
+
 
 const Stack = createStackNavigator();
 
@@ -38,6 +41,8 @@ const AppStack = () => {
       <Stack.Screen name="User Profile Page" component={UserProfilePage} />
       <Stack.Screen name="User Following Page" component={UserFollowingPage} />
       <Stack.Screen name="User Followers Page" component={UserFollowersPage} />
+      <Stack.Screen name="FriendsFeed" component={FriendsFeedPage} />
+      <Stack.Screen name="ForYouFeed" component={ForYouFeedPage} />
     </Stack.Navigator>
   );
 };

@@ -1,12 +1,15 @@
 // A search interface for finding users by username prefix, displaying search results with navigation to user profiles.
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, TextInput, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import { searchUsersByUsernamePrefix } from './database'; 
+import { UserContext } from './userContext';
 
-const MailPage = ( {navigation} ) => {
+const MailPage = ( {navigation, route} ) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const { currentUser } = useContext(UserContext);
+    const { setActiveTab } = route.params;
 
     const handleSearchChange = async (query) => {
         setSearchQuery(query);
@@ -40,7 +43,16 @@ const MailPage = ( {navigation} ) => {
             </View>
             <View style={styles.promptsContainer}>
             {searchResults.map((user, index) => (
-                <TouchableOpacity key={index} onPress={() => navigation.navigate('User Profile Page', { username: user.username })}>
+                <TouchableOpacity key={index} 
+                onPress={() => {
+                    if (user.username === currentUser) {
+                        setActiveTab('Profile');
+                        navigation.navigate('Profile');
+                    } else {
+                        navigation.navigate('User Profile Page', { username: user.username });
+                    }
+                }}
+                >
                     <View style={styles.userItem}>
                         <Image source={{ uri: user.profile_pic || 'default_profile_pic_uri' }} style={styles.profilePic} />
                         <View style={styles.userInfo}>

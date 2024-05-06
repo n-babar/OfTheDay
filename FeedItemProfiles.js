@@ -3,10 +3,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet, Modal, TextInput, Button, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { checkIfUserLikedPost, toggleLike, postCommentToBackend, deletePost, fetchComments, fetchUserProfilePic, countCommentsForPost } from '../database.js'; 
-import { UserContext } from '../userContext';
+import { checkIfUserLikedPost, toggleLike, postCommentToBackend, deletePost, fetchComments, fetchUserProfilePic, countCommentsForPost } from './database.js'; 
+import { UserContext } from './userContext';
 import { formatDistanceToNow } from 'date-fns';
-import { useNavigation } from '@react-navigation/native';
 
 function convertTimestamp(timestamp) {
     // Current time in milliseconds
@@ -34,9 +33,7 @@ function convertTimestamp(timestamp) {
     }
 }
 
-const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes, num_comments, created_at, postId, currentUsername, onDelete}) => {
-    const navigation = useNavigation();
-
+const FeedItemProfiles = ({ pfp, username, name, category, text, image, emoji, num_likes, num_comments, created_at, postId, currentUsername, onDelete}) => {;
     // const cloudinaryUrl = 'https://res.cloudinary.com/your_cloud_name/image/fetch';
     // const quality = 5; // Quality ranges from 0 (worst) to 100 (best)
 
@@ -121,12 +118,13 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
 
     const timestamp = convertTimestamp(created_at);
 
+
     return (
         <TouchableOpacity style={styles.feedItem}>
             <View style={[styles.userInfo, { justifyContent: 'space-between' }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     
-                    <TouchableOpacity onPress={() => navigation.navigate('User Profile Page', { username: username })} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                     <Image source={{ uri: pfp }} style={styles.profilePicture} />
                     <View>
                         <Text style={styles.name}>{name}</Text>
@@ -395,4 +393,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FeedItem;
+export default FeedItemProfiles;
