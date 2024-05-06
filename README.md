@@ -60,11 +60,12 @@ Anapaula |  |  |
 ### TODO - Push to testflight?
 
 ## Bugs to fix:
-- logging out is slightly buggy. warning sign when logging back in after a log out. an active tab on bottom bar doenst reset to feed when logging in after a logout. (fix should be easy ish hopefully.)
+- not really a bug, but maybe reset navaigation each time a tab is switched. kinda of weird to keep track of histroy of past tab you were own. apps do not work like that usually. but im not sure if this prevents any reloading of tabs? (easy i think).
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
 - making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? (maybe easier to make it a screen but harder for the dynamic animtion?)
+- add a loading signal for user profiles (already works for their feeds, just one for the user info too.) (easy)
 - When registering, give users the option to select their favorite OTDS (easier).
 - when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
 - Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists (easy)
