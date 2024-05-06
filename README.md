@@ -60,7 +60,7 @@ Anapaula |  |  |
 ### TODO - Push to testflight?
 
 ## Bugs to fix:
-- 2 warning bugs (they were hard to fix and do not break the app, are just warning that can prob be dismissed when the app is deployed)
+- logging out is slightly buggy. warning sign when logging back in after a log out. an active tab on bottom bar doenst reset to feed when logging in after a logout. (fix should be easy ish hopefully.)
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
