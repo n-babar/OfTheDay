@@ -55,19 +55,19 @@ Anapaula |  |  |
 - Users can log out.
 - users can follow and unfollow other users on other user's followers/following list just like you can do you own prrofile's lists
 - Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
+- Have users be redirected to accounts of other users when you click on their profile in the feed
 
 ### TODO - Push to testflight?
 
 ## Bugs to fix:
-- Loading screen fixed most of the feed bugs. still slightly buggy. when liking on for you page, takes loading following page twice instead of once to accuarately reflect changes the increased number of likes.
-- 2 warning bugs (they were hard to fix and do not break the app, are just warning that can be dismissed)
+- 2 warning bugs (they were hard to fix and do not break the app, are just warning that can prob be dismissed when the app is deployed)
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
 - making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? (maybe easier to make it a screen but harder for the dynamic animtion?)
-- have users be redirected to accounts of other users or their own aaccount when you click on their profile in the feed (might be eaiser but idk)
 - When registering, give users the option to select their favorite OTDS (easier).
 - when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
+- Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists (easy)
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
 - OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts (easier)
