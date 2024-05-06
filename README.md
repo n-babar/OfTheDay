@@ -60,7 +60,7 @@ Anapaula |  |  |
 ### TODO - Push to testflight?
 
 ## Bugs to fix:
-- not really a bug, but maybe reset navaigation each time a tab is switched. kinda of weird to keep track of histroy of past tab you were own. apps do not work like that usually. but im not sure if this prevents any reloading of tabs? (easy i think).
+- not really a bug, but maybe reset navaigation each time a tab is switched. kinda of weird to keep track of histroy of past tab you were own. apps do not work like that usually. but im not sure if this will lead to more reloading of tabs? (easy i think).
 
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
