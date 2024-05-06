@@ -4,7 +4,8 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { getUser, getFriendships, getFollowers, checkIfFollowing, followUser, unfollowUser, fetchUserPosts, getOTD } from './database';
 import { UserContext } from './userContext'
-import FeedItem from './feed/FeedItem';
+import FeedItemProfiles from './FeedItemProfiles';
+
 
 
 const UserProfilePage = ({ route, navigation }) => {
@@ -169,7 +170,7 @@ const UserProfilePage = ({ route, navigation }) => {
                 <View>
                     {userPosts.length > 0 ? (
                         userPosts.map((item, index) => (
-                            <FeedItem
+                            <FeedItemProfiles
                                 key={index}
                                 postId={item.id}
                                 pfp={item.pfp}

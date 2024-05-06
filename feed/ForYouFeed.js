@@ -8,8 +8,9 @@ import sortIcon from '../assets/sort-icon.png';
 import filterIcon from '../assets/filter-icon.png'; 
 import { UserContext } from '../userContext';
 import { getUser, getAllPosts, getAllOTDs, getAllUserFavoriteOtds } from '../database';
+import { useNavigation } from '@react-navigation/native';
 
-const ForYouFeedPage = () => {
+const ForYouFeedPage = ({navigation}) => {
     const { currentUser } = useContext(UserContext);
     const [globalFeed, setGlobalFeed] = useState([]);
     const [sortedAndFilteredFeed, setSortedAndFilteredFeed] = useState(globalFeed);
@@ -53,11 +54,14 @@ const ForYouFeedPage = () => {
                             console.error({"Failed to fetch user:": post.username});
                             return null;
                         }
+
+                        
                         
                         const otd = filteredOTDs.find(otd => otd.id === post.otd_id);
                         if (!otd) {
                             return null;
                         }
+
     
                         return {
                             ...post,
@@ -169,6 +173,7 @@ const ForYouFeedPage = () => {
                             created_at={item.created_at}
                             currentUsername={currentUser}
                             onDelete={() => setRefreshTrigger(prev => !prev)}
+                            navigation={navigation}
                         />
                     ))
                 ) : (
