@@ -8,8 +8,9 @@ import { UserContext } from './userContext';
 import TermsModal from './Terms';
 import { navigate } from './NavigationRef';
 import { useTab } from './TabContext';
+import { navigationRef } from './NavigationRef';
 
-const SignIn = ({ setActiveTab, setErrorMessage }) => {
+const SignInAgain = ({ }) => {
     const [loginVisible, setLoginVisible] = useState(false);
     const [registerVisible, setRegisterVisible] = useState(false);
     const [username, setUsername] = useState("");
@@ -18,7 +19,7 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
     const [termsVisible, setTermsVisible] = useState(false);
     const [accept, setAccept] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-    const { changeTab } = useTab();  // Using changeTab from TabContext
+    const { changeTab, setIsBottomBarVisible } = useTab();  // Using changeTab from TabContext
 
     // for password checking
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
@@ -44,11 +45,17 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
         } else {
 
             //console.log({"You're valid asf": true})
+
     
             setCurrentUser(username);
+            setIsBottomBarVisible(true);
             navigate('Feed');
-            setActiveTab('Feed');
-            changeTab('Feed'); 
+            changeTab('Feed');
+            navigationRef.current.reset({
+                index: 0,
+                routes: [{ name: 'Feed' }],
+            }); 
+ 
         }
     }
 
@@ -109,10 +116,14 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
                 const success = await addUserToDatabase(username, password);
                 if (success) {
                     setCurrentUser(username);
+                    setIsBottomBarVisible(true);
                     navigate('Feed');
-                    setActiveTab('Feed');
-                    changeTab('Feed'); 
+                    changeTab('Feed');
                     setAccept(false); // Reset the accept state to prevent future unintended registrations
+                    navigationRef.current.reset({
+                        index: 0,
+                        routes: [{ name: 'Feed' }],
+                    }); 
                 } else {
                     setErrorMessage("Failed to create an account. Please try again.");
                 }
@@ -274,4 +285,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignIn;
+export default SignInAgain;
