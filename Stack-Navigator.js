@@ -14,6 +14,7 @@ import UserFollowingPage from './UserFollowingPage.js';
 import UserFollowersPage from './UserFollowersPage.js';
 import FriendsFeedPage from './feed/FriendsFeed.js';
 import ForYouFeedPage from './feed/ForYouFeed.js';
+import SignInAgain from './signInAgain.js';
 
 
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ const AppStack = () => {
       <Stack.Screen name="Post" component={PostPage} />
       <Stack.Screen name="Create a Post" component={MakePost} />
       <Stack.Screen name="Search" component={MailPage} />
-      <Stack.Screen name="Sign In" component={SignIn} />
+      <Stack.Screen name="Register" component={SignIn} />
       <Stack.Screen name="Followers Page" component={FollowersPage} />
       <Stack.Screen name="Following Page" component={FollowingPage} />
       <Stack.Screen name="User Profile Page" component={UserProfilePage} />
@@ -43,6 +44,7 @@ const AppStack = () => {
       <Stack.Screen name="User Followers Page" component={UserFollowersPage} />
       <Stack.Screen name="FriendsFeed" component={FriendsFeedPage} />
       <Stack.Screen name="ForYouFeed" component={ForYouFeedPage} />
+      <Stack.Screen name="Sign In" component={SignInAgain} />
     </Stack.Navigator>
   );
 };

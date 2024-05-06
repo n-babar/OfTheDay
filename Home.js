@@ -28,7 +28,7 @@ const HomePage = ( {route, navigation} ) => {
     const otdCache = useRef({});
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const { changeTab } = useTab();
+    const { changeTab, setIsBottomBarVisible } = useTab();
     
 
 
@@ -257,14 +257,15 @@ const HomePage = ( {route, navigation} ) => {
     };
 
     const handleLogout = () => {
+        setIsBottomBarVisible(false);
         setModalVisible(false);
         setCurrentUser(null);
-        setActiveTab("Sign In");  // Reset tab context
+        navigation.navigate('Sign In');
+        changeTab("Sign In");
         navigation.reset({
             index: 0,
             routes: [{ name: 'Sign In' }],
         });
-        changeTab("Sign In");
     };
 
     return (

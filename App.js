@@ -104,26 +104,22 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Sign In');
+  const [activeTab, setActiveTab] = useState('Register');
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-
-  }, [errorMessage]);
-
- return (
+  return (
     <UserProvider>
       <TabProvider>
         <NavigationContainer ref={navigationRef}>
-          {/* Ensure the TabProvider context is available for SignIn */}     
-            {activeTab === "Sign In" ? (
-              <SignIn setActiveTab={setActiveTab} setErrorMessage={setErrorMessage} />
-            ) : (
-              <View style={styles.container}>
-                <AppStack />
-                <AppBottomBar />
-              </View>
-            )}
+          {/* Conditionally render SignIn or the main app content */}
+          {activeTab === "Register" || activeTab === "Sign In" ? (
+            <SignIn setActiveTab={setActiveTab} setErrorMessage={setErrorMessage} />
+          ) : (
+            <View style={styles.container}>
+              <AppStack />
+              <BottomBarComponent />
+            </View>
+          )}
           {errorMessage !== "" && (
             <ErrorMessage message={errorMessage} setErrorMessage={setErrorMessage} />
           )}
@@ -132,3 +128,10 @@ export default function App() {
     </UserProvider>
   );
 }
+
+function BottomBarComponent() {
+  const { activeTab } = useTab();
+  const showBottomBar = activeTab !== 'Register' && activeTab !== 'Sign In';  
+  return showBottomBar && <AppBottomBar />;
+}
+
