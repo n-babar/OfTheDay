@@ -18,10 +18,12 @@ const UserProfilePage = ({ route, navigation }) => {
     const [userPosts, setUserPosts] = useState([]);
     const otdCache = useRef({});
     const [isLoading, setIsLoading] = useState(true);
+    const [isProfileLoading, setIsProfileLoading] = useState(true);
 
 
     // Fetch following and followers count
     const fetchFollowingAndFollowers = async () => {
+        
         const followingResult = await getFriendships(username);
         const followersResult = await getFollowers(username);
 
@@ -91,11 +93,14 @@ const UserProfilePage = ({ route, navigation }) => {
 
     useEffect(() => {
         const fetchUserProfile = async () => {
+            setIsProfileLoading(true);
             const response = await getUser(username);
             if (!response.failed) {
                 setUser(response.user[0]);
             }
+            setIsProfileLoading(false);
         };
+        
         fetchUserProfile();
 
         fetchFollowingAndFollowers();
@@ -122,10 +127,7 @@ const UserProfilePage = ({ route, navigation }) => {
         fetchFollowingAndFollowers();
     };
 
-    if (!user) {
-        return <Text>Loading...</Text>;
-    }
-
+    
     return (
         <ScrollView style={styles.scrollView}>
             <View style={styles.headerContainer}>
@@ -133,31 +135,58 @@ const UserProfilePage = ({ route, navigation }) => {
                 <Text style={styles.headerText}>otd</Text>
                 <Text>             </Text>
             </View>
+
             <View style={styles.profileContainer}>
-                <Image style={styles.profileImage} source={{ uri: user.profile_pic }} />
-                <Text style={styles.profileName}>{user.first_name} {user.last_name}</Text>
-                <Text style={styles.profileHandle}>@{user.username}</Text>
-                <Text style={styles.profileLocation}>{user.location}</Text>
-                <Text style={styles.profileDescription}>{user.bio}</Text>
-                {/* Follow Button */}
-                <TouchableOpacity style={[styles.followButton, { backgroundColor: isFollowing ? 'grey' : '#05452b'}]} onPress={toggleFollow}>
-                    <Text style={styles.followButtonText}>{isFollowing ? 'Unfollow' : 'Follow'}</Text>
-                </TouchableOpacity>
-                {/* Following and Followers */}
-                <View style={styles.profileStats}>
-                <TouchableOpacity
-                    style={styles.statsBox}
-                    onPress={() => navigation.navigate('User Followers Page', { username: user })} >
-                    <Text style={styles.statsNumber}>{followersCount}</Text>
-                    <Text style={styles.statsLabel}>Followers</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.statsBox}
-                onPress={() => navigation.navigate('User Following Page', { username: user })} >
-                    <Text style={styles.statsNumber}>{followingCount}</Text>
-                    <Text style={styles.statsLabel}>Following</Text>
-                </TouchableOpacity>
-                </View>
+            {isProfileLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />
+                ) : (
+                    <>
+                        {user ? (
+                            <>
+                                <Image style={styles.profileImage} source={{ uri: user.profile_pic }} />
+                                <Text style={styles.profileName}>{user.first_name} {user.last_name}</Text>
+                                <Text style={styles.profileHandle}>@{user.username}</Text>
+                                <Text style={styles.profileLocation}>{user.location}</Text>
+                                <Text style={styles.profileDescription}>{user.bio}</Text>
+                                {/* Follow Button */}
+                                <TouchableOpacity style={[styles.followButton, { backgroundColor: isFollowing ? 'grey' : '#05452b'}]} onPress={toggleFollow}>
+                                    <Text style={styles.followButtonText}>{isFollowing ? 'Unfollow' : 'Follow'}</Text>
+                                </TouchableOpacity>
+                                {/* Following and Followers */}
+                                <View style={styles.profileStats}>
+                                <TouchableOpacity
+                                    style={styles.statsBox}
+                                    onPress={() => navigation.navigate('User Followers Page', { username: user })} >
+                                    <Text style={styles.statsNumber}>{followersCount}</Text>
+                                    <Text style={styles.statsLabel}>Followers</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.statsBox}
+                                onPress={() => navigation.navigate('User Following Page', { username: user })} >
+                                    <Text style={styles.statsNumber}>{followingCount}</Text>
+                                    <Text style={styles.statsLabel}>Following</Text>
+                                </TouchableOpacity>
+                                </View>
+                                
+                            </>
+                        ) : (
+                            <Text style={styles.noPostsText}>Profile not found</Text>
+                        )}
+                    </>
+                )}
             </View>
+
+            <View style={styles.sectionContainer}>
+
+            <Text style={styles.badges}>🤳 Selfie of the Day</Text>
+            <Text style={styles.badges}>: 1 times most upvoted globally!</Text>
+            </View>
+            <View style={styles.sectionContainer}>
+
+            <Text style={styles.badges}>🎵 Song of the Day</Text>
+            <Text style={styles.badges}>: 10 times most upvoted among friends!</Text>
+            </View>
+
+
 
             
 
@@ -289,9 +318,13 @@ const styles = StyleSheet.create({
     sectionContainer: {
         flexDirection: 'row',
         padding: 20,
-        borderBottomWidth: 1,
+        borderTopColor: 'lightgrey',
+
         borderBottomColor: 'lightgrey',
+  
     },
+
+
 
     centeredView: {
         flex: 1,
@@ -353,6 +386,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
+
+    badges: {
+        color: "white"
+    },
+
 });
 
 export default UserProfilePage;

@@ -29,6 +29,7 @@ const HomePage = ( {route, navigation} ) => {
     const [refreshTrigger, setRefreshTrigger] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { changeTab, setIsBottomBarVisible } = useTab();
+    const [isProfileLoading, setIsProfileLoading] = useState(true);
     
 
 
@@ -132,18 +133,21 @@ const HomePage = ( {route, navigation} ) => {
 
     // This fetchUser function is called to refresh user info
     const fetchUser = async () => {
+        setIsProfileLoading(true);
         try {
             const res = await getUser(currentUser);
-            if (!res.failed) {
+            if (res && !res.failed) {
                 setUser(res.user[0]); // Update user state with new data
             } else {
-                console.error("Failed to fetch user");
+                console.error("Failed to fetch user", res);
             }
         } catch (error) {
             console.error("Error fetching user:", error);
         }
+        setIsProfileLoading(false); // Ensure loading is turned off after the attempt
     };
 
+    
     //console.log({"current user:": currentUser});
 
     const fetchFollowingAndFollowers = async () => {
@@ -234,6 +238,7 @@ const HomePage = ( {route, navigation} ) => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            setIsProfileLoading(true);
             try {
                 const res = await getUser(currentUser);
                 if (res.failed) {
@@ -246,6 +251,7 @@ const HomePage = ( {route, navigation} ) => {
             } catch (error) {
                 console.error("Error fetching user:", error);
             }
+            setIsProfileLoading(false);
         };
         fetchUser();
         fetchPostsForUser();
@@ -277,34 +283,52 @@ const HomePage = ( {route, navigation} ) => {
                     <Icon name="cog" size={24} color="white" />
                 </TouchableOpacity>
             </View>
+
             <View style={styles.profileContainer}>
-                {user ? <Image
-                    style={styles.profileImage}
-                    source={{ uri: user.profile_pic }}
-                /> : null}
-                <Text style={styles.profileName}>{user ? user.first_name + ' ' + user.last_name : null}</Text>
-                <Text style={styles.profileHandle}>@{user ? user.username : null}</Text>
-                <Text style={styles.location}>
-                    {user ? user.location : null}
-                </Text>
-                <Text style={styles.profileDescription}>
-                    {user ? user.bio : null}
-                </Text>
-                <View style={styles.profileStats}>
-                <TouchableOpacity
-                style={styles.statsBox}
-                onPress={() => navigation.navigate('Followers Page', { username: currentUser })} >
-                <Text style={styles.statsNumber}>{followersCount}</Text>
-                <Text style={styles.statsLabel}>Followers</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.statsBox}
-            onPress={() => navigation.navigate('Following Page', { username: currentUser })} >
-                <Text style={styles.statsNumber}>{followingCount}</Text>
-                <Text style={styles.statsLabel}>Following</Text>
-            </TouchableOpacity>
-        </View>
-                
+            {isProfileLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />
+                ) : (
+                    <>
+                        {user ? (
+                            <>
+                                <Image
+                                    style={styles.profileImage}
+                                    source={{ uri: user.profile_pic }}
+                                />
+                                <Text style={styles.profileName}>{user.first_name + ' ' + user.last_name}</Text>
+                                <Text style={styles.profileHandle}>@{user.username}</Text>
+                                <Text style={styles.location}>{user.location}</Text>
+                                <Text style={styles.profileDescription}>{user.bio}</Text>
+                                <View style={styles.profileStats}>
+                                    <TouchableOpacity
+                                        style={styles.statsBox}
+                                        onPress={() => navigation.navigate('Followers Page', { username: currentUser })}
+                                    >
+                                        <Text style={styles.statsNumber}>{followersCount}</Text>
+                                        <Text style={styles.statsLabel}>Followers</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.statsBox}
+                                        onPress={() => navigation.navigate('Following Page', { username: currentUser })}
+                                    >
+                                        <Text style={styles.statsNumber}>{followingCount}</Text>
+                                        <Text style={styles.statsLabel}>Following</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </>
+                        ) : (
+                            <Text style={styles.noPostsText}>Profile not found</Text>
+                        )}
+                    </>
+                )}
             </View>
+
+            
+
+
+
+
+            
             <View style={styles.sectionContainer}>
 
                 <Text style={styles.badges}>🤳 Selfie of the Day</Text>
