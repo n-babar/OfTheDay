@@ -47,6 +47,7 @@ const FollowingPage = ({ navigation, route }) => {
             </View>
             {following.map((followedUser, index) => (
                 <View key={index} style={styles.followingItem}>
+                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                     <Image 
                         source={{ uri: followedUser.profile_pic || 'default_image_placeholder' }}
                         style={styles.profileImage}
@@ -55,6 +56,7 @@ const FollowingPage = ({ navigation, route }) => {
                         <Text style={styles.followingName}>{followedUser.first_name} {followedUser.last_name}</Text>
                         <Text style={styles.followingUsername}>@{followedUser.username}</Text>
                     </View>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.removeButton}
                         onPress={() => handleUnfollow(followedUser.username)}
