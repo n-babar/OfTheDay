@@ -1,7 +1,7 @@
 // A screen designed to show the profiles of users that a specific user is following, with the ability to view detailed profiles.
 
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { getFollowingDetails, followUser, unfollowUser, checkIfFollowing } from './database';
 import { UserContext } from './userContext'
 import { useTab } from './TabContext';
@@ -11,9 +11,11 @@ const UserFollowingPage = ({ navigation, route }) => {
     const [following, setFollowing] = useState([]);
     const { currentUser } = useContext(UserContext);
     const { changeTab } = useTab();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchFollowing = async () => {
+            setIsLoading(true);
             // console.log('Fetching following for:', username);
             const result = await getFollowingDetails(username.username);
             if (!result.failed && result.following) {
@@ -38,6 +40,7 @@ const UserFollowingPage = ({ navigation, route }) => {
             } else {
                 console.error("Error fetching following:", result.error);
             }
+            setIsLoading(false);
         };
         fetchFollowing();
     }, [username, currentUser]); // Added currentUser dependency
@@ -64,7 +67,10 @@ const UserFollowingPage = ({ navigation, route }) => {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Following</Text>
             </View>
-            {following.map((user, index) => (
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />  // Display the loading indicator
+            ) : (
+            following.map((user, index) => (
                 <View key={index} style={styles.followingItem}>
                     <TouchableOpacity 
                     onPress={() => {
@@ -94,7 +100,7 @@ const UserFollowingPage = ({ navigation, route }) => {
                         </TouchableOpacity>
                     )}
                 </View>
-            ))}
+            )))}
         </ScrollView>
     );
 };

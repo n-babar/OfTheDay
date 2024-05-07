@@ -102,6 +102,7 @@ const FriendsFeedPage = ({navigation}) => {
             setIsLoading(false);
         } catch (error) {
             console.error("Error fetching posts:", error);
+            setIsLoading(false);
         }
     };
 
