@@ -48,7 +48,7 @@ const FollowersPage = ({ navigation, route }) => {
                 </View>
             {followers.map((follower, index) => (
                 <View key={index} style={styles.followerItem}>
-                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                    <TouchableOpacity onPress={() =>  navigation.navigate('User Profile Page', { username: follower.username })} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                     <Image 
                         source={{ uri: follower.profile_pic || 'default_image_placeholder' }}
                         style={styles.profileImage}
