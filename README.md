@@ -57,27 +57,42 @@ Anapaula |  |  |
 - Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
 - Have users be redirected to accounts of other users when you click on their profile in the feed
 
-### TODO - Push to testflight?
-
-## Bugs to fix:
-- not really a bug, but maybe reset navaigation each time a tab is switched. kinda of weird to keep track of histroy of past tab you were own. apps do not work like that usually. but im not sure if this will lead to more reloading of tabs? (easy i think).
-
+### TODO - Push to testflight/deploy to app store?????
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
+
+(Concerning loading screens)
 - making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? (maybe easier to make it a screen but harder for the dynamic animtion?)
 - add a loading signal for user profiles (already works for their feeds, just one for the user info too.) (easy)
-- When registering, give users the option to select their favorite OTDS (easier).
+- add a loading signal for user following/following list? (easy)
+
+
+(Concerning registration)
 - when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
+- When registering, give users the option to select their favorite OTDS (easier).
+
+
+(Concerning basic social media features)
 - Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists (easy)
-- For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
-- Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
-- OTD (Of the Day): Make feeds reset every day??? This is actually really easy to do. Our code would just load posts since 12:00 AM. We did not implement this yet because we want the graders to see our posts (easier)
-- Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts)
-- Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though (medium)
-- Maybe make it so the user has to engage with prompt of the day to even access their feed (medium)
 - Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail) (idk - maybe easy)
-- Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts) (medium)
+
+  
+(OTD Daily Features)
+- For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
+- Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though (medium)
+- Maybe make it so the user has to make a post to even access their feed each day(medium)
 
 
+(May require more recourses/app store deployment maybe), so for later...)
 - Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
 - When registering, give users the option to follow their contacts
+- Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts in databases to do this in the future)
+
+
+(Discussion on how this feature will work required...)
+- Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
+- Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts) (do we still want this, whats the difference btw this and adding a time filter to the feed, like reddit has) (medium)
+
+
+## Bugs to fix:
+- None right now!
