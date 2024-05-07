@@ -57,15 +57,11 @@ Anapaula |  |  |
 - Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
 - Have users be redirected to accounts of other users when you click on their profile in the feed
 - Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists
-- loading signal for user profiles
+- loading signal for user profiles, following/followers lists, and search tab.
 
 ### TODO - Push to testflight/deploy to app store?????
 
 ## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
-
-(Concerning loading screens)
-- making loading signal more complex, dynamic logo screen instead of a revolving circle maybe? maybe combine loading signals for profiles and feeds on user profiles (rn, there is one for each) (maybe easier to make it a screen but harder for the dynamic animtion?)
-- add a loading signal for user following/following list? (easy)
 
 
 (Concerning registration)
@@ -73,14 +69,19 @@ Anapaula |  |  |
 - When registering, give users the option to select their favorite OTDS (easier).
 
 
-(Concerning basic social media features)
-- Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail) (idk - maybe easy)
-
-  
 (OTD Daily Features)
 - For prompts, the number answered count is hardcoded. Update the code so that these are accurate (easier).
 - Limit users to only one post per prompt per day???? User should be allowed to post as many prompts as they want per day though (medium)
 - Maybe make it so the user has to make a post to even access their feed each day(medium)
+
+
+(Concerning basic social media features)
+- Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail) (idk - maybe easy)
+
+
+(Concerning loading screens)
+- making loading signal more complex, dynamic logo screen instead of a green revolving circle maybe (medium??? diffuclty)
+-  also maybe optimize so that the DOM is being set up while loading? (rn it just calls the backend functions while loading, which is most of the payload but both would be ideal) (alt solution maybe have frontent appear in phases, like while dom is loading, objects can have dark rendering background, like fizz does)
 
 
 (May require more recourses/app store deployment maybe), so for later...)
