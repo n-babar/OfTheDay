@@ -22,6 +22,10 @@ const AppBottomBar = () => {
         onPress={() => {
           navigation.navigate('Feed');
           changeTab('Feed');
+          navigationRef.current.reset({
+            index: 0,
+            routes: [{ name: 'Feed' }],
+        }); 
         }}>
         <Icon name='list' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Feed</Text>
@@ -31,6 +35,10 @@ const AppBottomBar = () => {
         onPress={() => {
           navigation.navigate('Post');
           changeTab('Post');
+          navigationRef.current.reset({
+            index: 0,
+            routes: [{ name: 'Post' }],
+        }); 
         }}>
         <Icon name='add-circle' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Post</Text>
@@ -40,6 +48,11 @@ const AppBottomBar = () => {
         onPress={() => {
           navigation.navigate('Search');
           changeTab('Search');
+          navigationRef.current.reset({
+            index: 0,
+            routes: [{ name: 'Search' }],
+        }); 
+          
         }}>
         <Icon name='search' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Search</Text>
@@ -49,6 +62,10 @@ const AppBottomBar = () => {
         onPress={() => {
           navigation.navigate('Profile');
           changeTab('Profile');
+          navigationRef.current.reset({
+            index: 0,
+            routes: [{ name: 'Profile' }],
+        }); 
         }}>
         <Icon name='person' size={25} color="#FFFFFF"></Icon>
         <Text style={styles.tabText}>Profile</Text>
