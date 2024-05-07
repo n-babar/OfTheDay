@@ -1,10 +1,11 @@
 // A search interface for finding users by username prefix, displaying search results with navigation to user profiles.
 
 import React, { useState, useContext } from 'react';
-import { View, TextInput, StyleSheet, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, ScrollView, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { searchUsersByUsernamePrefix } from './database'; 
 import { UserContext } from './userContext';
 import { useTab } from './TabContext';
+
 
 
 const MailPage = ( {navigation} ) => {
@@ -12,8 +13,10 @@ const MailPage = ( {navigation} ) => {
     const [searchResults, setSearchResults] = useState([]);
     const { currentUser } = useContext(UserContext);
     const { changeTab } = useTab();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearchChange = async (query) => {
+        setIsLoading(true);
         setSearchQuery(query);
         if (query.trim() === '') {
             setSearchResults([]);
@@ -30,6 +33,7 @@ const MailPage = ( {navigation} ) => {
                 setSearchResults([]);
             }
         }
+        setIsLoading(false);
     };
 
     return (
@@ -44,7 +48,10 @@ const MailPage = ( {navigation} ) => {
                 />
             </View>
             <View style={styles.promptsContainer}>
-            {searchResults.map((user, index) => (
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />  // Display the loading indicator
+            ) : (
+            searchResults.map((user, index) => (
                 <TouchableOpacity key={index} 
                 onPress={() => {
                     if (user.username === currentUser) {
@@ -63,7 +70,7 @@ const MailPage = ( {navigation} ) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-            ))}
+            )))}
             </View>
         </ScrollView>
     );

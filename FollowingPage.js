@@ -1,18 +1,20 @@
 // Screen component to display users that the current user is following with functionality to unfollow.
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { getFollowingDetails, unfollowUser } from './database';
 
 const FollowingPage = ({ navigation, route }) => {
     const { username } = route.params;
     const [following, setFollowing] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetchFollowing();
     }, [username]);
 
     const fetchFollowing = async () => {
+        setIsLoading(true);
         try { 
             const result = await getFollowingDetails(username);
             if (!result.failed) {
@@ -29,6 +31,7 @@ const FollowingPage = ({ navigation, route }) => {
         } catch (error) {
             console.error("Error fetching following:", error);
         }
+        setIsLoading(false);
     };
 
     const handleUnfollow = async (unfollowUsername) => {
@@ -45,26 +48,31 @@ const FollowingPage = ({ navigation, route }) => {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Following</Text>
             </View>
-            {following.map((followedUser, index) => (
-                <View key={index} style={styles.followingItem}>
-                    <TouchableOpacity onPress={() =>  navigation.navigate('User Profile Page', { username: followedUser.username })} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                    <Image 
-                        source={{ uri: followedUser.profile_pic || 'default_image_placeholder' }}
-                        style={styles.profileImage}
-                    />
-                    <View style={styles.followingDetails}>
-                        <Text style={styles.followingName}>{followedUser.first_name} {followedUser.last_name}</Text>
-                        <Text style={styles.followingUsername}>@{followedUser.username}</Text>
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />  // Display the loading indicator
+            ) : (
+                following.map((followedUser, index) => (
+                    <View key={index} style={styles.followingItem}>
+                        <TouchableOpacity onPress={() =>  navigation.navigate('User Profile Page', { username: followedUser.username })} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                        <Image 
+                            source={{ uri: followedUser.profile_pic || 'default_image_placeholder' }}
+                            style={styles.profileImage}
+                        />
+                        <View style={styles.followingDetails}>
+                            <Text style={styles.followingName}>{followedUser.first_name} {followedUser.last_name}</Text>
+                            <Text style={styles.followingUsername}>@{followedUser.username}</Text>
+                        </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.removeButton}
+                            onPress={() => handleUnfollow(followedUser.username)}
+                        >
+                            <Text style={styles.removeButtonText}>Unfollow</Text>
+                        </TouchableOpacity>
                     </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.removeButton}
-                        onPress={() => handleUnfollow(followedUser.username)}
-                    >
-                        <Text style={styles.removeButtonText}>Unfollow</Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
+                ))
+            )}
+
         </ScrollView>
     );
 };

@@ -1,12 +1,13 @@
 // Screen component displaying the list of followers for a specific user with the option to remove followers.
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { getFollowersDetails, removeFollower } from './database';
 
 const FollowersPage = ({ navigation, route }) => {
     const { username } = route.params;
     const [followers, setFollowers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
 
@@ -14,6 +15,7 @@ const FollowersPage = ({ navigation, route }) => {
     }, [username]);
 
     const fetchFollowers = async () => {
+        setIsLoading(true);
         try { 
             const result = await getFollowersDetails(username);
             if (!result.failed) {
@@ -29,6 +31,7 @@ const FollowersPage = ({ navigation, route }) => {
         } catch (error) {
             console.error("Error fetching followers:", error);
         }
+        setIsLoading(false);
     };
 
     const handleRemove = async (removeUsername) => {
@@ -46,7 +49,10 @@ const FollowersPage = ({ navigation, route }) => {
         
                 <Text style={styles.headerTitle}>Followers</Text>
                 </View>
-            {followers.map((follower, index) => (
+                {isLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />  // Display the loading indicator
+            ) : (
+            followers.map((follower, index) => (
                 <View key={index} style={styles.followerItem}>
                     <TouchableOpacity onPress={() =>  navigation.navigate('User Profile Page', { username: follower.username })} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                     <Image 
@@ -64,7 +70,8 @@ const FollowersPage = ({ navigation, route }) => {
                         <Text style={styles.removeButtonText}>Remove</Text>
                     </TouchableOpacity>
                 </View>
-            ))}
+            ))
+        )}
         </ScrollView>
     );
 };

@@ -33,6 +33,8 @@ const ForYouFeedPage = ({navigation}) => {
     
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
+            
             try {
                 // Fetch data in the background
                 const [postsResponse, otdsResponse] = await Promise.all([
@@ -80,6 +82,7 @@ const ForYouFeedPage = ({navigation}) => {
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
+                setIsLoading(false);
             }
         };
     
@@ -132,13 +135,7 @@ const ForYouFeedPage = ({navigation}) => {
         ], { cancelable: true });
     };
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsLoading(false);
-        }, 10000);
-
-        return () => clearTimeout(timeout);
-    }, []);
+   
 
     return (
         <ScrollView style={styles.container}>

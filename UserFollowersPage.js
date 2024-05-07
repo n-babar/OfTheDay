@@ -1,7 +1,7 @@
 // A screen dedicated to displaying the followers of a specific user, leveraging data from the database to populate the list.
 
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { getFollowersDetails, followUser, unfollowUser, checkIfFollowing } from './database';
 import { UserContext } from './userContext';
 import { useTab } from './TabContext';
@@ -11,9 +11,11 @@ const UserFollowersPage = ({ navigation, route }) => {
     const [followers, setFollowers] = useState([]);
     const { currentUser } = useContext(UserContext);
     const { changeTab } = useTab();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchFollowers = async () => {
+            setIsLoading(true);
             try {
                 const result = await getFollowersDetails(username.username);
                 if (!result.failed) {
@@ -37,6 +39,7 @@ const UserFollowersPage = ({ navigation, route }) => {
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
+            setIsLoading(false);
         };
 
         fetchFollowers();
@@ -62,7 +65,10 @@ const UserFollowersPage = ({ navigation, route }) => {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Followers</Text>
             </View>
-            {followers.map((follower, index) => (
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#05452b" />  // Display the loading indicator
+            ) : (
+            followers.map((follower, index) => (
                 <View key={index} style={styles.followersItem}>
                     <TouchableOpacity onPress={() => {
                     if (follower.username === currentUser) {
@@ -91,7 +97,7 @@ const UserFollowersPage = ({ navigation, route }) => {
                         </TouchableOpacity>
                     )}
                 </View>
-            ))}
+            )))}
         </ScrollView>
     );
 };
