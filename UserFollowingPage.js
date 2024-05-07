@@ -4,11 +4,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { getFollowingDetails, followUser, unfollowUser, checkIfFollowing } from './database';
 import { UserContext } from './userContext'
+import { useTab } from './TabContext';
 
 const UserFollowingPage = ({ navigation, route }) => {
     const { username } = route.params; // Assuming this is correctly extracting the username
     const [following, setFollowing] = useState([]);
     const { currentUser } = useContext(UserContext);
+    const { changeTab } = useTab();
 
     useEffect(() => {
         const fetchFollowing = async () => {
@@ -64,6 +66,16 @@ const UserFollowingPage = ({ navigation, route }) => {
             </View>
             {following.map((user, index) => (
                 <View key={index} style={styles.followingItem}>
+                    <TouchableOpacity 
+                    onPress={() => {
+                        if (user.username === currentUser) {
+                            changeTab('Profile');
+                            navigation.navigate('Profile');
+                        } else {
+                            navigation.navigate('User Profile Page', { username: user.username });
+                        }
+                    }}
+                    style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
                     <Image 
                         source={{ uri: user.profile_pic || 'default_image_placeholder' }}
                         style={styles.profileImage}
@@ -72,6 +84,7 @@ const UserFollowingPage = ({ navigation, route }) => {
                         <Text style={styles.followingName}>{user.first_name} {user.last_name}</Text>
                         <Text style={styles.followingUsername}>@{user.username}</Text>
                     </View>
+                    </TouchableOpacity>
                     {user.username !== currentUser && (
                         <TouchableOpacity
                             style={[styles.removeButton, { backgroundColor: user.isFollowing ? 'grey' : '#05452b'}]}
