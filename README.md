@@ -56,6 +56,7 @@ Anapaula |  |  |
 - users can follow and unfollow other users on other user's followers/following list just like you can do you own prrofile's lists
 - Loading screen when loading any feed, in the main feed, users own profile, and on other profiles. Fixed a lot of the feed bugs.
 - Have users be redirected to accounts of other users when you click on their profile in the feed
+- Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists
 
 ### TODO - Push to testflight/deploy to app store?????
 
@@ -73,7 +74,6 @@ Anapaula |  |  |
 
 
 (Concerning basic social media features)
-- Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists (easy)
 - Implement linking songs/articles/youtube videos like in imessage (convert link to a clickable thumbnail) (idk - maybe easy)
 
   
