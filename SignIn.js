@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: -210,
         backgroundColor: "#061b26",
-        borderWidth: 3,
+        borderWidth: 0,
         borderColor: "grey",
         borderRadius: 10,
         padding: 10,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#121212',
+        backgroundColor: '#061b26',
     },
 
     title: {
