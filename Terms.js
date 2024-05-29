@@ -57,10 +57,10 @@ const TermsModal = ({ visible, onClose, setIsChecked, isChecked }) => {
 
                         <View style={styles.checkboxContainer}>
                             <CheckBox
-                                title="I have read the terms and conditions"
                                 checked={isChecked}
                                 onPress={() => setIsChecked(!isChecked)}
                             />
+                            <Text style={styles.agreement}>I have read the terms and conditions.</Text>
                         </View>
                     </ScrollView>
                     <View style={styles.buttonContainer}>
@@ -78,6 +78,12 @@ const TermsModal = ({ visible, onClose, setIsChecked, isChecked }) => {
 };
 
 const styles = StyleSheet.create({
+
+    agreement: {
+        marginTop: 17,
+        fontWeight: 'bold'
+    },
+
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -96,6 +102,7 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         marginTop: 10,
         marginBottom: 20,
+        flexDirection: 'row',
     },
 
     buttonContainer: {
