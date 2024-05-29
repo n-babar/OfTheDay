@@ -58,6 +58,7 @@ Anapaula |  |  |
 - Have users be redirected to accounts of other users when you click on their profile in the feed
 - Have users be redirected to accounts of other users or their own aaccount you click on profiles in following/followrs lists
 - loading signal for user profiles, following/followers lists, and search tab.
+- When registering users can to immediately enter their name, location, and bio.
 
 ### TODO - Push to testflight/deploy to app store?????
 
@@ -65,7 +66,6 @@ Anapaula |  |  |
 
 
 (Concerning registration)
-- when registering allow users, to set their information before being able to access the tabs (currently new users have to set their new info in the profile page) (easier)
 - When registering, give users the option to select their favorite OTDS (easier).
 
 
@@ -87,12 +87,13 @@ Anapaula |  |  |
 (May require more recourses/app store deployment maybe), so for later...)
 - Get access to a better photo drive. Right now photos bigger than 10 mg cannot be uploaded. most photos are find but extremely high resolution like a sun rise with an amazing view may be too big. right now we are using a free cloud drive. we will invest in better recourses as we grow our app.
 - When registering, give users the option to follow their contacts
-- Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts in databases to do this in the future)
+- Implement external sharing for posts (idk if its even possible to do on expo go, but we prob have to add a link field to posts in databases to do this in the future), button currenttly commented out
 
 
 (Discussion on how this feature will work required...)
+- Implement leaderborad/refferal system
 - Implement badge functionaility (right now badges are hardcoded and are the same under everyones own profile), didnt have enough time for this (harder)
-- Show most upvoted post of previous day on top of global feed???? (also do this when filtering by prompts) (do we still want this, whats the difference btw this and adding a time filter to the feed, like reddit has) (medium)
+- adding a time filter for most upvoted like reddit has
 
 
 ## Bugs to fix:
