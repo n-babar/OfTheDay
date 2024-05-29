@@ -6,7 +6,7 @@ import { createNavigationContainerRef, useNavigation } from '@react-navigation/n
 import { addUserToDatabase, checkUsernameExists, verifyLoginAttempt, updateUserProfile } from './database';
 import { UserContext } from './userContext';
 import TermsModal from './Terms';
-import { navigate } from './NavigationRef';
+import { navigationRef, navigate } from './NavigationRef';
 import { useTab } from './TabContext';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -56,6 +56,10 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
             navigate('Feed');
             setActiveTab('Feed');
             changeTab('Feed');
+            navigationRef.current.reset({
+                index: 0,
+                routes: [{ name: 'Feed' }],
+            }); 
         }
     };
 
@@ -150,9 +154,13 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
                     if (profilePic) updates.profile_pic = profilePic;
                     await updateUserProfile(username, updates);
                     setCurrentUser(username);
-                    navigate('Feed');
-                    setActiveTab('Feed');
-                    changeTab('Feed');
+                    navigate('Post');
+                    setActiveTab('Post');
+                    changeTab('Post');
+                    navigationRef.current.reset({
+                        index: 0,
+                        routes: [{ name: 'Post' }],
+                    }); 
                     setAccept(false); // Reset the accept state to prevent future unintended registrations
                 } else {
                     setErrorMessage("Failed to create an account. Please try again.");
@@ -179,14 +187,11 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
             quality: 1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
             setProfilePicVisible(false);
             setTermsVisible(true);
-        } else {
-            alert('Failure uploading profile picture.');
-            return;
-        }
+        } 
 
 
 
@@ -208,14 +213,11 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
             quality: 1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
             setProfilePicVisible(false);
             setTermsVisible(true);
-        } else {
-            alert('Failure uploading profile picture.');
-            return;
-        }
+        } 
     };
 
     const handleImagePicked = async (uri) => {
@@ -352,12 +354,15 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
                 animationType="slide"
                 transparent={true}
                 onRequestClose={handleProfilePicClose}
+                syle={styles.photoModal}
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Upload Profile Picture</Text>
                         <Button title="Take Photo" onPress={takePhoto} />
+                        <View style={styles.separator} />
                         <Button title="Choose from Library" onPress={chooseFromLibrary} />
+                        <View style={styles.separator} />
                         <Button title="Skip" onPress={handleProfilePicClose} />
                     </View>
                 </View>
@@ -374,6 +379,8 @@ const SignIn = ({ setActiveTab, setErrorMessage }) => {
 };
 
 const styles = StyleSheet.create({
+  
+
     headerText: {
         fontSize: 100,
         fontWeight: 'bold',

@@ -191,7 +191,7 @@ const FriendsFeedPage = ({navigation}) => {
         />
         ))
     ) : (
-        <Text style={styles.noPostsText}>Loading or Find Friends!</Text>
+        <ActivityIndicator size="large" color="#05452b" />
     )}
 </View>
         </ScrollView>

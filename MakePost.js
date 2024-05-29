@@ -164,7 +164,9 @@ const PostScreen = ({ route, navigation }) => {
             quality: 1,
         });
 
-        handleImagePicked(result);
+        if (result.canceled !== true) {
+            handleImagePicked(result);
+        }
     };
 
     // Function to select an image from the library
@@ -183,7 +185,10 @@ const PostScreen = ({ route, navigation }) => {
             quality: 1,
         });
 
-        handleImagePicked(result);
+        if (result.canceled !== true) {
+            handleImagePicked(result);
+        }
+
     };
 
     const handleImagePicked = async (pickerResult) => {
