@@ -66,6 +66,7 @@ Anapaula |  |  |
 
 
 (Concerning registration)
+- Have feeds be loading in batches. Right now, entire feed is loaded at once, which will break the app once there is alot of users.
 - When registering, give users the option to select their favorite OTDS (easier).
 
 
