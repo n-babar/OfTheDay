@@ -156,11 +156,11 @@ const SignInAgain = ({ }) => {
                     if (profilePic) updates.profile_pic = profilePic;
                     await updateUserProfile(username, updates);
                     setCurrentUser(username);
-                    navigate('Feed');
-                    changeTab('Feed');
+                    navigate('Post');
+                    changeTab('Post');
                     navigationRef.current.reset({
                         index: 0,
-                    routes: [{ name: 'Feed' }],
+                    routes: [{ name: 'Post' }],
                     });
                     setAccept(false); // Reset the accept state to prevent future unintended registrations
                 } else {
@@ -188,16 +188,11 @@ const SignInAgain = ({ }) => {
             quality: 1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
             setProfilePicVisible(false);
             setTermsVisible(true);
-        } else {
-            alert('Failure uploading profile picture.');
-            return;
-        }
-
-
+        } 
 
 
 
@@ -217,13 +212,10 @@ const SignInAgain = ({ }) => {
             quality: 1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
             setProfilePicVisible(false);
             setTermsVisible(true);
-        } else {
-            alert('Failure uploading profile picture.');
-            return;
         }
     };
 
@@ -481,7 +473,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        paddingBottom: 255,
+        paddingBottom: 150,
     },
 
     modalContent: {

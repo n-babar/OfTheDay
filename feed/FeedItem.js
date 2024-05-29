@@ -160,11 +160,11 @@ const FeedItem = ({ pfp, username, name, category, text, image, emoji, num_likes
                         <Text style={styles.actionText}>{commentsCount}</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={styles.actionButton}>
+                {/* <View style={styles.actionButton}>
                     <View style={styles.iconView}>
                         <Icon name="share-social-outline" size={20} color="#FFFFFF"/>
                     </View>
-                </View>
+                </View> */}
                 {currentUsername === username && (
                     <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(postId)}>
                         <Icon name="trash-outline" size={20} color="#FFFFFF"/>

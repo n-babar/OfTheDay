@@ -92,8 +92,9 @@ const HomePage = ( {route, navigation} ) => {
             aspect: [4, 3],
             quality: 1,
         });
+  
     
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
         }
     };
@@ -112,7 +113,7 @@ const HomePage = ( {route, navigation} ) => {
             quality: 1,
         });
     
-        if (!result.cancelled) {
+        if (!result.canceled) {
             handleImagePicked(result.assets[0].uri);
         }
     };
@@ -317,7 +318,7 @@ const HomePage = ( {route, navigation} ) => {
                                 </View>
                             </>
                         ) : (
-                            <Text style={styles.noPostsText}>Profile not found</Text>
+                            <ActivityIndicator size="large" color="#05452b"/>
                         )}
                     </>
                 )}
@@ -329,7 +330,7 @@ const HomePage = ( {route, navigation} ) => {
 
 
             
-            <View style={styles.sectionContainer}>
+            {/* <View style={styles.sectionContainer}>
 
                 <Text style={styles.badges}>🤳 Selfie of the Day</Text>
                 <Text style={styles.badges}>: 1 times most upvoted globally!</Text>
@@ -338,7 +339,7 @@ const HomePage = ( {route, navigation} ) => {
 
                 <Text style={styles.badges}>🎵 Song of the Day</Text>
                 <Text style={styles.badges}>: 10 times most upvoted among friends!</Text>
-            </View>
+            </View> */}
 
 
             <View>
@@ -368,7 +369,7 @@ const HomePage = ( {route, navigation} ) => {
                     />
                 ))
             ) : (
-                <Text style={styles.noPostsText}>Loading or you have no posts!</Text>
+                <ActivityIndicator size="large" color="#05452b" />
             )}
         </View>
     )}

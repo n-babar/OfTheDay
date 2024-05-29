@@ -174,7 +174,7 @@ const ForYouFeedPage = ({navigation}) => {
                         />
                     ))
                 ) : (
-                    null // Do not render anything if isLoading is true
+                    <ActivityIndicator size="large" color="#05452b" />
                 )}
             </View>
         </ScrollView>
