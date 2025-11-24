@@ -5,15 +5,13 @@
 ## Synopsis
 OTD: Your Daily Snapshot into Life's Moments
 
-Introducing OTD (Of The Day), an innovative social app where daily life becomes a shared adventure. At the heart of OTD lies the concept of daily prompts – a series of tags inviting you to capture and share unique aspects of your day.
+Introducing OTD (Of The Day), a social app that turns everyday life into a shared routine. Each day includes a set of simple prompts like *Song of the Day* to capture the mood, *Sight of the Day* to show what stood out, *Struggle of the Day* for a dose of honesty, *Outfit of the Day* for the fashion-minded, *Selfie of the Day* for personal snapshots, *Quote of the Day* for whatever inspired you, and many more. You answer them with quick snapshots or notes, creating a small record of what your day actually looked and felt like, without the pressure of a perfect post.
 
-Whether it's your 'Song of the Day' setting the mood, the 'Sight of the Day' highlighting what caught your eye, or the 'Struggle of the Day' for a dose of real-life authenticity, OTD is your canvas to paint everyday stories. The 'Outfit of the Day' lets fashion enthusiasts showcase their style, while 'Selfie of the Day' is perfect for those personal moments. And for the thinkers, 'Quote of the Day' allows for a shared reflection.
-
-Each of these modes not only adds color to your profile but also connects you with a community sharing similar moments. The unique hashtag system of OTD enables easy navigation through the sea of daily experiences, allowing you to curate your feed and follow threads that resonate with you. It's more than an app – it's a daily journal, a community, and a new way to see the world through the eyes of others. With OTD, every day is a new page in a collective diary of life.
+Your posts show up in two places: a private feed for friends and a global feed where you can see how people everywhere responded to the same prompts. Over time, your profile becomes a timeline of these daily moments, and the tag system makes it simple to explore others’ posts by theme. OTD is built to encourage genuine sharing, spark creativity, and make it easy to look back on the small details that usually disappear.
 
 
 
-## Meet our Team!
+## Meet our team!
 
 
 
@@ -25,7 +23,7 @@ Babar |<img src="https://drive.google.com/uc?export=view&id=10gi24_iGT7aW4Drmd6H
 
 
 
-## Setup/Instructions for Users:
+## Setup/Instructions for users
 
 - Git clone this project
 - Download Expo Go
@@ -34,7 +32,7 @@ Babar |<img src="https://drive.google.com/uc?export=view&id=10gi24_iGT7aW4Drmd6H
 - Register (must meet username/password requirements, it not, you will simply be informed how to adjust your username and password
 - Or (if you want to immediately see a feed with friends), you can sign in as (username: anudeep, password: #Anudeep1)
 
-## Features you can Currently Test on our App:
+## Features you can currently test on our app:
 - New users can create an account, choosing username/password. There are certain requirements, very similar to other apps/web accounts
 - New users prompted to accept terms and conditions
 - Current users can login. Easy if using iPhone save password feature
@@ -58,9 +56,9 @@ Babar |<img src="https://drive.google.com/uc?export=view&id=10gi24_iGT7aW4Drmd6H
 - loading signal for user profiles, following/followers lists, and search tab.
 - When registering users can to immediately enter their name, location, and bio.
 
-### TODO - Push to testflight/deploy to app store?????
+### TODO - Push to TestFlight/deploy to App Store
 
-## Features we Plan on Implementing Next Quarter to Make this a Company (did not have enough time to add these by deadline):
+## Features we plan on implementing in the near future (did not have enough time to add these by deadline):
 
 
 (Concerning registration)
